@@ -6,22 +6,27 @@
 /* --- CSS 변수 정의 (컬러 팔레트 및 시스템 토큰) --- */
 :root {
   --font-base: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
-  
+
   /* 메인 색상 */
-  --color-primary: #0f172a;      /* 딥 네이비 (주조색) */
+  --color-primary: #0f172a;
+  /* 딥 네이비 (주조색) */
   --color-primary-light: #1e293b;
-  --color-brand-blue: #1e3a8a;   /* 클래식 블루 */
-  --color-accent-blue: #2563eb;  /* 포인트 로열 블루 */
+  --color-brand-blue: #1e3a8a;
+  /* 클래식 블루 */
+  --color-accent-blue: #2563eb;
+  /* 포인트 로열 블루 */
   --color-accent-hover: #1d4ed8;
-  --color-accent-subtle: #eff6ff;/* 연한 블루 배경 */
-  --color-accent-gold: #b45309;  /* 은은한 골드/앰버 포인트 */
+  --color-accent-subtle: #eff6ff;
+  /* 연한 블루 배경 */
+  --color-accent-gold: #b45309;
+  /* 은은한 골드/앰버 포인트 */
 
   /* 배경색 */
   --bg-body: #f8fafc;
   --bg-card: #ffffff;
   --bg-card-alt: #f1f5f9;
   --bg-hero: radial-gradient(100% 100% at 50% 0%, #ffffff 0%, #f1f5f9 100%);
-  
+
   /* 텍스트 색상 */
   --text-title: #0f172a;
   --text-body: #334155;
@@ -53,7 +58,9 @@
 }
 
 /* --- 기본 리셋 및 글로벌 세팅 --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -75,7 +82,8 @@ body {
   overflow-x: hidden;
 }
 
-img, svg {
+img,
+svg {
   display: block;
   max-width: 100%;
 }
@@ -93,7 +101,8 @@ button {
   background: none;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -440,7 +449,7 @@ ul, ol {
 
 @media (min-width: 768px) {
   .hero-section {
-    padding: 96px 0 88px;
+    padding: 48px 0 40px;
   }
 }
 
@@ -1412,4 +1421,557 @@ img[src*="english-pop"] {
   background-color: var(--color-accent-blue);
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   S&C JOURNAL 섹션
+   ========================================================================== */
+
+.journal-section {
+  background: var(--bg-card-alt);
+}
+
+/* 2열 그리드 (PC) */
+.journal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+/* 카드 공통 베이스 */
+.journal-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  position: relative;
+  transition:
+    box-shadow var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.journal-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+
+/* 카드 전체를 링크로: 세로 flex */
+.journal-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  outline-offset: 3px;
+}
+
+.journal-card-link:focus-visible {
+  outline: 2px solid var(--border-focus);
+}
+
+/* NEW / PICK 뱃지 */
+.journal-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.journal-badge--new {
+  background: var(--color-accent-blue);
+  color: #fff;
+}
+
+.journal-badge--pick {
+  background: var(--color-accent-gold);
+  color: #fff;
+}
+
+/* 썸네일 래퍼 */
+.journal-thumb-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg-card-alt);
+  flex-shrink: 0;
+}
+
+/* 썸네일 이미지 */
+.journal-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.journal-card:hover .journal-thumb {
+  transform: scale(1.04);
+}
+
+/* 카드 본문 영역 */
+.journal-card-body {
+  padding: 20px 24px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 카테고리 레이블 */
+.journal-category {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent-blue);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* 글 제목 */
+.journal-title {
+  font-size: clamp(15px, 1.5vw, 17px);
+  font-weight: 700;
+  color: var(--text-title);
+  line-height: 1.55;
+  margin: 0;
+  /* 최대 3줄 표시 후 말줄임 */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 발행일 */
+.journal-date {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+/* 로딩 / 오류 스켈레톤 */
+.journal-skeleton {
+  padding: 32px 24px;
+  color: var(--text-muted);
+  font-size: 14px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* 블로그 전체 보기 링크 */
+.journal-more {
+  text-align: center;
+  margin-top: 36px;
+}
+
+/* ── 반응형: 모바일 1열 세로 배치 ── */
+@media (max-width: 768px) {
+  .journal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .journal-card-body {
+    padding: 16px 18px 20px;
+  }
+}
+
+
+/* 2026-10-18: 요청 부분만 조정한 반응형 개선 */
+.hero-highlights {
+  width: 100%;
+  max-width: 760px;
+  margin: 28px auto 24px;
+  text-align: left;
+}
+
+.highlight-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.highlight-eyebrow {
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--color-accent-blue);
+}
+
+.highlight-carousel {
+  border: 1px solid var(--border-subtle);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.highlight-link {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  color: inherit;
+  text-decoration: none;
+  min-height: 160px;
+}
+
+.highlight-image-wrap {
+  background: #edf3fa;
+  min-height: 240px;
+  height: 240px;
+  overflow: hidden;
+}
+
+.highlight-image-wrap img {
+  width: 100%;
+  height: 240px;
+  min-height: 0;
+  object-fit: contain;
+  display: block;
+}
+
+.highlight-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 9px;
+  padding: 18px;
+  min-width: 0;
+}
+
+.highlight-tag {
+  font-size: .72rem;
+  color: var(--color-accent-blue);
+  font-weight: 800;
+}
+
+.highlight-copy strong {
+  font-size: 1rem;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.highlight-read {
+  font-size: .78rem;
+  color: var(--text-body);
+}
+
+.highlight-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 5px 12px 9px;
+}
+
+.highlight-controls button {
+  background: #f1f5f9;
+  border: 1px solid var(--border-subtle);
+  border-radius: 7px;
+  width: 34px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: var(--text-title);
+}
+
+.highlight-controls span {
+  font-size: .78rem;
+  color: var(--text-body);
+}
+
+.quote-close {
+  color: var(--color-accent-blue);
+  opacity: .45;
+  font-family: Georgia, serif;
+  padding-left: 5px;
+}
+
+.program-expand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--color-accent-blue);
+  font-weight: 800;
+  margin-top: 16px;
+  padding: 12px 0 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.program-expand span {
+  font-size: 1.2rem;
+  transition: transform .2s;
+}
+
+.program-expand[aria-expanded="true"] span {
+  transform: rotate(180deg);
+}
+
+.program-detail {
+  padding-top: 12px;
+  font-size: .9rem;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.program-detail a {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--color-accent-blue);
+  font-weight: 700;
+}
+
+@media(max-width:767px) {
+  .hero-highlights {
+    margin: 22px auto 18px;
+  }
+
+  .highlight-link {
+    grid-template-columns: 38% 1fr;
+    min-height: 132px;
+  }
+
+  .highlight-image-wrap,
+  .highlight-image-wrap img {
+    min-height: 132px;
+  }
+
+  .highlight-copy {
+    padding: 12px;
+    gap: 6px;
+  }
+
+  .highlight-copy strong {
+    font-size: .88rem;
+  }
+
+  .philosophy-card {
+    padding: 20px 20px;
+  }
+
+  .philosophy-card .card-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  .philosophy-card .card-title {
+    margin-bottom: 7px;
+  }
+
+  .philosophy-card .card-desc {
+    line-height: 1.55;
+  }
+
+  .program-card {
+    padding: 20px;
+  }
+
+  .program-header {
+    min-height: 0;
+    margin-bottom: 8px;
+  }
+
+  .program-logo-wrap {
+    height: 52px;
+  }
+
+  .program-brand-logo,
+  img[src*="nopigom"],
+  img[src*="english-eye"],
+  img[src*="english-pop"] {
+    max-height: 50px;
+  }
+
+  .program-title {
+    margin-bottom: 8px;
+  }
+
+  .program-divider {
+    margin-bottom: 9px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .program-expand span {
+    transition: none;
+  }
+}
+
+/* 2차 검토: 인용 부호를 제목 양끝에 붙이고, 다른 글의 이미지 대체 사용 금지 */
+.about-quote .quote-mark {
+  display: none;
+}
+
+.quote-inline {
+  font-family: Georgia, serif;
+  color: var(--color-accent-blue);
+  opacity: .55;
+  font-size: 1em;
+  padding: 0 .12em;
+}
+
+.highlight-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.highlight-image-wrap img[hidden],
+.highlight-no-image[hidden] {
+  display: none !important;
+}
+
+.highlight-no-image {
+  font-weight: 800;
+  color: #4977b7;
+  font-size: 1.2rem;
+  letter-spacing: .08em;
+  text-align: center;
+  padding: 16px;
+}
+
+/* 3차 미리보기: 모바일 밀도 개선 (데스크톱 레이아웃 불변) */
+@media (max-width: 767px) {
+  .section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .section-header {
+    margin-bottom: 24px;
+  }
+
+  .section-tag {
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    margin-bottom: 8px;
+  }
+
+  .hero-section {
+    padding-top: 38px;
+    padding-bottom: 36px;
+  }
+
+  .hero-highlights {
+    margin-top: 16px;
+    margin-bottom: 14px;
+  }
+
+  .philosophy-grid {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .philosophy-card {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 6px;
+    padding: 16px 18px;
+  }
+
+  .philosophy-card .card-icon {
+    grid-column: 1;
+    grid-row: 1;
+    width: 38px;
+    height: 38px;
+    margin: 0;
+  }
+
+  .philosophy-card .card-step {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+  }
+
+  .philosophy-card .card-title {
+    grid-column: 1 / -1;
+    margin: 2px 0 0;
+  }
+
+  .philosophy-card .card-desc {
+    grid-column: 1 / -1;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .programs-grid {
+    gap: 12px;
+  }
+
+  .program-card {
+    padding: 16px 18px;
+  }
+
+  .program-header {
+    min-height: 0;
+    margin-bottom: 4px;
+  }
+
+  .program-logo-wrap {
+    height: 44px;
+  }
+
+  .program-brand-logo,
+  img[src*="nopigom"],
+  img[src*="english-eye"],
+  img[src*="english-pop"] {
+    max-height: 44px;
+  }
+
+  .program-title {
+    margin-bottom: 6px;
+  }
+
+  .program-divider {
+    margin-bottom: 7px;
+  }
+
+  .program-desc {
+    line-height: 1.5;
+  }
+
+  .program-expand {
+    margin-top: 10px;
+    padding-top: 9px;
+  }
+}
+
+/* 모바일 대메뉴 간격 조정: PC 화면은 변경하지 않음 */
+@media (max-width: 767px) {
+  .section {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .section-header {
+    margin-bottom: 17px;
+  }
+
+  .hero-section {
+    padding-bottom: 25px;
+  }
+
+  .philosophy-grid,
+  .programs-grid {
+    gap: 10px;
+  }
 }

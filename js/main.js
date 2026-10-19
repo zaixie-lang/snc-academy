@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3. 스크롤스파이 (Scrollspy): 현재 섹션 감지하여 네비게이션 링크 활성화
   const sections = document.querySelectorAll('main section[id]');
-  
+
   const handleScrollSpy = () => {
     const scrollPosition = window.scrollY + 120;
 
@@ -104,4 +104,52 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.addEventListener('scroll', handleScrollSpy, { passive: true });
+});
+
+/* 블로그 슬라이드: 실제 썸네일 우선, 실패하면 학원 공통 이미지 */
+document.addEventListener('DOMContentLoaded', function () {
+  const carousel = document.getElementById('highlightCarousel');
+  if (!carousel) return;
+  let slides = [{ title: '훈민정음 28자는 왜 24자가 됐을까? 사라진 네 글자의 흔적', url: 'https://blog.naver.com/hannak74/224433289896', image: '', tag: 'PICK' }];
+  let pos = 0;
+  const link = document.getElementById('highlightLink'), img = document.getElementById('highlightImage');
+  const empty = document.getElementById('highlightNoImage'), title = document.getElementById('highlightTitle');
+  const tag = document.getElementById('highlightTag'), count = document.getElementById('highlightCount');
+  function render() {
+    const s = slides[pos]; link.href = s.url; title.textContent = s.title; tag.textContent = s.tag;
+    count.textContent = (pos + 1) + ' / ' + slides.length;
+    const fallback = 'images/blog-fallback.png';
+    const source = (typeof s.image === 'string' && s.image.trim()) ? s.image.trim() : fallback; img.hidden = false; empty.hidden = true;
+    img.alt = s.title + ' 대표 이미지';
+    img.onerror = function () {
+      // Never loop if even the local fallback is missing.
+      if (img.src.endsWith('/' + fallback)) { img.hidden = true; empty.hidden = false; return; }
+      img.onerror = function () { img.hidden = true; empty.hidden = false; };
+      img.src = fallback;
+    };
+    img.src = source;
+  }
+  document.getElementById('highlightPrev').addEventListener('click', function () { pos = (pos + slides.length - 1) % slides.length; render(); });
+  document.getElementById('highlightNext').addEventListener('click', function () { pos = (pos + 1) % slides.length; render(); });
+  fetch('data/blog-posts.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw Error('blog data'); return r.json(); }).then(data => {
+    if (!Array.isArray(data.posts)) return;
+    const valid = data.posts.filter(p => p && p.title && /^https:\/\/(?:m\.)?blog\.naver\.com\/hannak74\/\d+/.test(p.url)).slice(0, 3);
+    if (valid.length) { slides = valid; pos = 0; render(); }
+  }).catch(() => { });
+  render();
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(function () { if (!document.hidden && slides.length > 1) { pos = (pos + 1) % slides.length; render(); } }, 5500);
+  }
+});
+
+/* 브랜드 상세 안내: 한 번에 하나만 펼치기 */
+document.addEventListener('DOMContentLoaded', function () {
+  var buttons = Array.from(document.querySelectorAll('.program-expand'));
+  buttons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      var shouldOpen = button.getAttribute('aria-expanded') !== 'true';
+      buttons.forEach(function (other) { other.setAttribute('aria-expanded', 'false'); document.getElementById(other.getAttribute('aria-controls')).hidden = true; });
+      if (shouldOpen) { button.setAttribute('aria-expanded', 'true'); document.getElementById(button.getAttribute('aria-controls')).hidden = false; }
+    });
+  });
 });
