@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S&C ACADEMY (에스앤씨학원) | 광명 철산동 학원</title>
-  <meta name="description" content="경기도 광명시 철산동 S&C학원. Consistency Wins. 꾸준함이 결국 이깁니다. 바른 인성, 탄탄한 기본기, 연결되는 배움, 담대한 성장.">
-  
+  <meta name="description"
+    content="경기도 광명시 철산동 S&C학원. Consistency Wins. 꾸준함이 결국 이깁니다. 바른 인성, 탄탄한 기본기, 연결되는 배움, 담대한 성장.">
+
   <!-- Pretendard 웹폰트 (깔끔하고 신뢰감 있는 폰트) -->
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
   <!-- 스타일시트 -->
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <!-- 상단 네비게이션 헤더 -->
   <header class="site-header" id="header">
@@ -53,42 +57,36 @@
           <span>경기도 광명시 철산동 · S&C ACADEMY</span>
         </div>
 
-        <div class="hero-logo-wrap">
-          <img src="images/snc-logo.png" alt="S&C ACADEMY 로고" class="hero-logo-img">
-        </div>
-
         <h1 class="hero-title">
           <span class="hero-sub-slogan">Strong & Courageous</span>
           <span class="hero-en-slogan">Consistency Wins.</span>
           <span class="hero-kr-slogan">강하고 담대하게, 꾸준함이 결국 이깁니다.</span>
         </h1>
 
+
+        <!-- 첫 화면 블로그 추천 글: 최신 글 + 추천 글 2개 -->
+        <section class="hero-highlights" aria-label="S&C 블로그 추천 글">
+          <div class="highlight-heading"><span>S&C의 새로운 이야기</span><span class="highlight-eyebrow">BLOG HIGHLIGHTS</span>
+          </div>
+          <div class="highlight-carousel" id="highlightCarousel" aria-roledescription="carousel">
+            <a class="highlight-link" id="highlightLink" href="https://blog.naver.com/hannak74" target="_blank"
+              rel="noopener noreferrer">
+              <div class="highlight-image-wrap" id="highlightImageWrap"><img id="highlightImage" src="" alt=""
+                  hidden><span class="highlight-no-image" id="highlightNoImage">S&C BLOG</span></div>
+              <div class="highlight-copy"><span class="highlight-tag" id="highlightTag">S&C BLOG</span><strong
+                  id="highlightTitle">학원 블로그에서 새로운 이야기를 만나보세요</strong><span class="highlight-read">글 읽기 ↗</span></div>
+            </a>
+            <div class="highlight-controls">
+              <button type="button" id="highlightPrev" aria-label="이전 글">‹</button>
+              <span id="highlightCount" aria-live="polite">1 / 3</span>
+              <button type="button" id="highlightNext" aria-label="다음 글">›</button>
+            </div>
+          </div>
+        </section>
+
         <div class="hero-actions">
           <a href="#programs" class="btn btn-primary">교육 프로그램 보기</a>
           <a href="#philosophy" class="btn btn-secondary">교육철학 알아보기</a>
-        </div>
-
-        <!-- 핵심 가치 요약 바 -->
-        <div class="hero-pillars">
-          <div class="pillar-item">
-            <span class="pillar-num">01</span>
-            <span class="pillar-text">바른 인성</span>
-          </div>
-          <div class="pillar-divider"></div>
-          <div class="pillar-item">
-            <span class="pillar-num">02</span>
-            <span class="pillar-text">탄탄한 기본기</span>
-          </div>
-          <div class="pillar-divider"></div>
-          <div class="pillar-item">
-            <span class="pillar-num">03</span>
-            <span class="pillar-text">연결되는 배움</span>
-          </div>
-          <div class="pillar-divider"></div>
-          <div class="pillar-item">
-            <span class="pillar-num">04</span>
-            <span class="pillar-text">담대한 성장</span>
-          </div>
         </div>
       </div>
     </section>
@@ -108,8 +106,11 @@
           <!-- 가치 1 -->
           <article class="philosophy-card">
             <div class="card-icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                </path>
               </svg>
             </div>
             <span class="card-step">Value 01</span>
@@ -122,7 +123,8 @@
           <!-- 가치 2 -->
           <article class="philosophy-card">
             <div class="card-icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                 <path d="M2 17l10 5 10-5"></path>
                 <path d="M2 12l10 5 10-5"></path>
@@ -138,7 +140,8 @@
           <!-- 가치 3 -->
           <article class="philosophy-card">
             <div class="card-icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="18" cy="5" r="3"></circle>
                 <circle cx="6" cy="12" r="3"></circle>
                 <circle cx="18" cy="19" r="3"></circle>
@@ -156,8 +159,11 @@
           <!-- 가치 4 -->
           <article class="philosophy-card">
             <div class="card-icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                </polygon>
               </svg>
             </div>
             <span class="card-step">Value 04</span>
@@ -175,9 +181,11 @@
             <p class="banner-desc">학원의 교육 방향과 지도 철학에 대한 상세한 글을 네이버 공식 블로그에서 확인하실 수 있습니다.</p>
           </div>
           <div class="banner-action">
-            <a href="https://blog.naver.com/hannak74/224441531077" target="_blank" rel="noopener noreferrer" class="btn btn-blog" aria-label="교육철학 자세히 보기 (네이버 블로그 새 창 열림)">
+            <a href="https://blog.naver.com/hannak74/224441531077" target="_blank" rel="noopener noreferrer"
+              class="btn btn-blog" aria-label="교육철학 자세히 보기 (네이버 블로그 새 창 열림)">
               <span>교육철학 자세히 보기</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                 <polyline points="15 3 21 3 21 9"></polyline>
                 <line x1="10" y1="14" x2="21" y2="3"></line>
@@ -211,6 +219,12 @@
             <h3 class="program-title">한솔 노피곰</h3>
             <div class="program-divider"></div>
             <p class="program-desc">6~10세 · 한글부터 문해력·수해력까지</p>
+            <button class="program-expand" type="button" aria-expanded="false" aria-controls="program-detail-1">자세히 보기
+              <span aria-hidden="true">⌄</span></button>
+            <div class="program-detail" id="program-detail-1" hidden>
+              <p>이 프로그램의 교육 방향과 수업에 관한 소식은 S&C 공식 블로그에서 확인하실 수 있습니다.</p>
+              <a href="https://blog.naver.com/hannak74" target="_blank" rel="noopener noreferrer">관련 블로그 살펴보기 ↗</a>
+            </div>
           </article>
 
           <!-- 2. 비상 잉글리시팝 -->
@@ -224,6 +238,13 @@
             <h3 class="program-title">비상 잉글리시팝</h3>
             <div class="program-divider"></div>
             <p class="program-desc">6~9세 · 영어가 즐거워지는 특별한 시작!</p>
+
+            <button class="program-expand" type="button" aria-expanded="false" aria-controls="program-detail-2">자세히 보기
+              <span aria-hidden="true">⌄</span></button>
+            <div class="program-detail" id="program-detail-2" hidden>
+              <p>이 프로그램의 교육 방향과 수업에 관한 소식은 S&C 공식 블로그에서 확인하실 수 있습니다.</p><a href="https://blog.naver.com/hannak74"
+                target="_blank" rel="noopener noreferrer">관련 블로그 살펴보기 ↗</a>
+            </div>
           </article>
 
           <!-- 3. 비상 잉글리시아이 -->
@@ -237,6 +258,12 @@
             <h3 class="program-title">비상 잉글리시아이</h3>
             <div class="program-divider"></div>
             <p class="program-desc">모국어 습득 방식으로 배우는 영어, 기초부터 내신 대비까지</p>
+            <button class="program-expand" type="button" aria-expanded="false" aria-controls="program-detail-3">자세히 보기
+              <span aria-hidden="true">⌄</span></button>
+            <div class="program-detail" id="program-detail-3" hidden>
+              <p>이 프로그램의 교육 방향과 수업에 관한 소식은 S&C 공식 블로그에서 확인하실 수 있습니다.</p>
+              <a href="https://blog.naver.com/hannak74" target="_blank" rel="noopener noreferrer">관련 블로그 살펴보기 ↗</a>
+            </div>
           </article>
 
           <!-- 4. 강담수학 -->
@@ -250,6 +277,14 @@
             <h3 class="program-title">강담수학</h3>
             <div class="program-divider"></div>
             <p class="program-desc">초1~중3 · 수학의 기본기를 탄탄하게 다지는 시간</p>
+
+            <button class="program-expand" type="button" aria-expanded="false" aria-controls="program-detail-4">자세히 보기
+              <span aria-hidden="true">⌄</span></button>
+            <div class="program-detail" id="program-detail-4" hidden>
+              <p>이 프로그램의 교육 방향과 수업에 관한 소식은 S&C 공식 블로그에서 확인하실 수 있습니다.</p><a
+                href="https://blog.naver.com/hannak74/224402757866" target="_blank" rel="noopener noreferrer">관련 블로그
+                살펴보기 ↗</a>
+            </div>
           </article>
 
           <!-- 5. 해법독서논술·역사 -->
@@ -263,6 +298,13 @@
             <h3 class="program-title">해법독서논술·역사</h3>
             <div class="program-divider"></div>
             <p class="program-desc">한 권 제대로 읽고, 스스로 생각하고 표현하는 힘</p>
+            <button class="program-expand" type="button" aria-expanded="false" aria-controls="program-detail-5">자세히 보기
+              <span aria-hidden="true">⌄</span></button>
+            <div class="program-detail" id="program-detail-5" hidden>
+              <p>이 프로그램의 교육 방향과 수업에 관한 소식은 S&C 공식 블로그에서 확인하실 수 있습니다.</p>
+              <a href="https://blog.naver.com/hannak74/223888100493" target="_blank" rel="noopener noreferrer">관련 블로그
+                살펴보기 ↗</a>
+            </div>
           </article>
 
           <!-- 6. 강담스터디카페 -->
@@ -276,6 +318,14 @@
             <h3 class="program-title">강담스터디카페</h3>
             <div class="program-divider"></div>
             <p class="program-desc">조용한 학습 환경, 꼼꼼한 관리의 직영 스터디카페</p>
+
+            <button class="program-expand" type="button" aria-expanded="false" aria-controls="program-detail-6">자세히 보기
+              <span aria-hidden="true">⌄</span></button>
+            <div class="program-detail" id="program-detail-6" hidden>
+              <p>이 프로그램의 교육 방향과 수업에 관한 소식은 S&C 공식 블로그에서 확인하실 수 있습니다.</p><a
+                href="https://blog.naver.com/hannak74/224427957132" target="_blank" rel="noopener noreferrer">관련 블로그
+                살펴보기 ↗</a>
+            </div>
           </article>
         </div>
       </div>
@@ -295,17 +345,17 @@
         <div class="about-card-box">
           <div class="about-main-text">
             <div class="about-quote">
-              <span class="quote-mark">“</span>
-              <h3 class="quote-title">세상을 읽는 힘, 생각을 연결하는 공부</h3>
+              <h3 class="quote-title"><span class="quote-inline" aria-hidden="true">“</span>세상을 읽는 힘, 생각을 연결하는 공부<span
+                  class="quote-inline" aria-hidden="true">”</span></h3>
             </div>
             <p class="about-paragraph">
-              경기도 광명시 철산동에 자리한 <strong>S&C ACADEMY(에스앤씨학원)</strong>는 눈앞의 단기적인 성과보다 
+              경기도 광명시 철산동에 자리한 <strong>S&C ACADEMY(에스앤씨학원)</strong>는 눈앞의 단기적인 성과보다
               <strong>‘스스로 지속할 수 있는 꾸준함’</strong>의 가치를 가장 중요하게 생각합니다.
             </p>
             <p class="about-paragraph">
-              <strong>Consistency Wins(꾸준함이 결국 이깁니다)</strong>라는 약속 아래, 
+              <strong>Consistency Wins(꾸준함이 결국 이깁니다)</strong>라는 약속 아래,
               학생 스스로 지식을 탐구하고 원리를 이해하여 배움의 기쁨을 알아가도록 이끕니다.
-              유아·초등 시기의 바른 학습 태도 형성과 탄탄한 기본기부터, 
+              유아·초등 시기의 바른 학습 태도 형성과 탄탄한 기본기부터,
               중등 시기의 깊이 있는 사고력과 자기주도적 몰입까지 체계적으로 뒷받침합니다.
             </p>
           </div>
@@ -337,7 +387,7 @@
       </div>
     </section>
 
-    <!-- 5. 상담 및 오시는 길 (Contact & Location) -->
+    <!-- 6. 상담 및 오시는 길 (Contact & Location) -->
     <section class="section contact-section" id="contact">
       <div class="container">
         <div class="section-header">
@@ -358,7 +408,8 @@
               <!-- 위치 -->
               <li class="info-item">
                 <div class="info-icon" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
@@ -373,8 +424,11 @@
               <!-- 상담 전화 -->
               <li class="info-item">
                 <div class="info-icon" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                    </path>
                   </svg>
                 </div>
                 <div class="info-details">
@@ -389,7 +443,8 @@
               <!-- 운영 시간 -->
               <li class="info-item">
                 <div class="info-icon" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <polyline points="12 6 12 12 16 14"></polyline>
                   </svg>
@@ -403,7 +458,8 @@
               <!-- 상담 방법 안내 -->
               <li class="info-item">
                 <div class="info-icon" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                     <line x1="16" y1="2" x2="16" y2="6"></line>
                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -432,7 +488,8 @@
             <div class="map-badge">오시는 길 안내</div>
             <div class="map-visual">
               <!-- 실제 약도 지도 이미지 (클릭 시 네이버 지도 이동) -->
-              <a href="https://naver.me/FK5heKWa" target="_blank" rel="noopener noreferrer" class="map-image-link" aria-label="S&C ACADEMY 네이버 지도에서 보기 (새 창 열림)">
+              <a href="https://naver.me/FK5heKWa" target="_blank" rel="noopener noreferrer" class="map-image-link"
+                aria-label="S&C ACADEMY 네이버 지도에서 보기 (새 창 열림)">
                 <img src="images/SNC-academy-map-annotated.png" alt="S&C ACADEMY 오시는 길 약도 지도" class="map-image">
               </a>
 
@@ -443,9 +500,11 @@
               </p>
 
               <!-- 네이버 지도에서 위치 확인·길찾기 링크 -->
-              <a href="https://naver.me/FK5heKWa" target="_blank" rel="noopener noreferrer" class="btn btn-naver-map" aria-label="네이버 지도에서 위치 확인·길찾기 (새 창 열림)">
+              <a href="https://naver.me/FK5heKWa" target="_blank" rel="noopener noreferrer" class="btn btn-naver-map"
+                aria-label="네이버 지도에서 위치 확인·길찾기 (새 창 열림)">
                 <span>네이버 지도에서 위치 확인·길찾기</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                   <polyline points="15 3 21 3 21 9"></polyline>
                   <line x1="10" y1="14" x2="21" y2="3"></line>
@@ -485,7 +544,8 @@
 
   <!-- 맨 위로 가기 버튼 -->
   <button class="back-to-top" id="backToTop" aria-label="화면 최상단으로 이동">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+      stroke-linecap="round" stroke-linejoin="round">
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
   </button>
@@ -493,4 +553,5 @@
   <!-- 자바스크립트 -->
   <script src="js/main.js"></script>
 </body>
+
 </html>
