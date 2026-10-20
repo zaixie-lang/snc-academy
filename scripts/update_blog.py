@@ -1,11 +1,13 @@
 """Refresh rolling Naver blog posts with high-resolution image cache."""
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 import html
 import json
+from pathlib import Path
 import re
 import urllib.request
-from datetime import datetime, timezone
-from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 CFG_FILE = ROOT / 'data/blog-config.json'
@@ -13,6 +15,7 @@ OUT = ROOT / 'data/blog-posts.json'
 IMAGE_DIR = ROOT / 'images/blog'
 FALLBACK = 'images/blog-fallback.png'
 OWNER = 'hannak74'
+RSS_URL = f'https://rss.blog.naver.com/{OWNER}.xml'
 
 USER_AGENT = (
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
@@ -95,6 +98,49 @@ def fetch_post_details(log_no):
             best_image_url = html.unescape(og_img_m.group(1)).strip()
 
     return title, best_image_url
+
+
+def fetch_rss_recent_posts(exclude_urls, limit=2):
+    """Fetch recent posts from Naver Blog RSS feed, excluding specified URLs."""
+    try:
+        raw_xml = fetch_url(RSS_URL, timeout=15)
+        root = ET.fromstring(raw_xml)
+    except Exception as exc:
+        print(f'Failed to fetch RSS feed: {exc}')
+        return []
+
+    exclude_set = {clean_url(u) for u in exclude_urls}
+    candidates = []
+    seen = set()
+
+    for item in root.findall('.//item'):
+        raw_link = (item.findtext('link') or '').strip()
+        link = re.sub(r'\?fromRss=true.*$', '', raw_link).strip()
+        normalized = clean_url(link)
+        title = html.unescape((item.findtext('title') or '').strip())
+
+        if not normalized or normalized in exclude_set or normalized in seen:
+            continue
+        if not re.fullmatch(rf'https://(?:m\.)?blog\.naver\.com/{OWNER}/\d+', normalized, re.I):
+            continue
+
+        pub_date_str = item.findtext('pubDate') or ''
+        dt = None
+        if pub_date_str:
+            try:
+                dt = parsedate_to_datetime(pub_date_str).astimezone(timezone.utc)
+            except Exception:
+                dt = None
+
+        seen.add(normalized)
+        candidates.append({
+            'url': normalized,
+            'title': title,
+            'pubDate': dt,
+        })
+
+    candidates.sort(key=lambda x: x['pubDate'] or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
+    return candidates[:limit]
 
 
 def determine_extension(data, content_type=''):
@@ -264,12 +310,13 @@ def main():
     posts = []
     default_tags = ['노피곰 설명회', '철산중 영어시험 분석', '강담수학']
 
+    # 1. Process pinned posts (3 items)
     for index, post_cfg in enumerate(cfg_posts):
         url = clean_url(post_cfg.get('url', ''))
         log_no = extract_log_no(url)
         tag = post_cfg.get('tag') or (default_tags[index] if index < len(default_tags) else 'S&C BLOG')
 
-        # Use title from config if explicitly set; otherwise fetch from Naver blog
+        # Use title/image from config if explicitly set; otherwise fetch from Naver blog
         title = post_cfg.get('title', '').strip()
         custom_image = post_cfg.get('image', '').strip()
 
@@ -293,6 +340,43 @@ def main():
             'tag': tag,
         }
         posts.append(post_entry)
+
+    # 2. Fetch 2 recent posts from RSS feed excluding pinned URLs
+    pinned_urls = [p['url'] for p in posts]
+    recent_candidates = fetch_rss_recent_posts(exclude_urls=pinned_urls, limit=2)
+
+    recent_tags = ['LATEST', 'RECENT']
+    for idx, candidate in enumerate(recent_candidates):
+        url = candidate['url']
+        log_no = extract_log_no(url)
+        auto_title, auto_image_url = fetch_post_details(log_no)
+        final_title = auto_title or candidate.get('title') or 'S&C ACADEMY 공식 블로그'
+        downloaded = download_post_image(auto_image_url, log_no)
+        final_image = downloaded or FALLBACK
+        tag = recent_tags[idx] if idx < len(recent_tags) else 'LATEST'
+
+        posts.append({
+            'title': final_title,
+            'url': url,
+            'image': final_image,
+            'tag': tag,
+        })
+
+    # Fallback to existing posts if RSS fetch failed and we have fewer than 5 posts
+    if len(posts) < 5 and OUT.is_file():
+        try:
+            prev_data = json.loads(OUT.read_text(encoding='utf-8'))
+            prev_posts = prev_data.get('posts', [])
+            existing_urls = {clean_url(p['url']) for p in posts}
+            for p in prev_posts:
+                if len(posts) >= 5:
+                    break
+                p_url = clean_url(p.get('url', ''))
+                if p_url and p_url not in existing_urls:
+                    posts.append(p)
+                    existing_urls.add(p_url)
+        except Exception as exc:
+            print(f'Warning: Failed to load previous posts for fallback: {exc}')
 
     # Save data/blog-posts.json atomically
     result = {

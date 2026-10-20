@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('highlightNext').addEventListener('click', function () { pos = (pos + 1) % slides.length; render(); });
   fetch('data/blog-posts.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw Error('blog data'); return r.json(); }).then(data => {
     if (!Array.isArray(data.posts)) return;
-    const valid = data.posts.filter(p => p && p.title && /^https:\/\/(?:m\.)?blog\.naver\.com\/hannak74\/\d+/.test(p.url)).slice(0, 3);
+    const valid = data.posts.filter(p => p && p.title && /^https:\/\/(?:m\.)?blog\.naver\.com\/hannak74\/\d+/.test(p.url)).slice(0, 5);
     if (valid.length) { slides = valid; pos = 0; render(); }
   }).catch(() => { });
   render();
