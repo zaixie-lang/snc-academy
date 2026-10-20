@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', function () {
   const carousel = document.getElementById('highlightCarousel');
   if (!carousel) return;
-  let slides = [{ title: '훈민정음 28자는 왜 24자가 됐을까? 사라진 네 글자의 흔적', url: 'https://blog.naver.com/hannak74/224433289896', image: '', tag: 'PICK' }];
+  let slides = [{ title: '[공지] (초대)노피곰 광명평생학습원 설명회｜6세부터 초3, 공부는 ‘얼마나 많이’보다 ‘어떻게 시작하느냐’ 방종임대표', url: 'https://blog.naver.com/hannak74/224433493226', image: 'images/blog/post-224433493226.png', tag: '노피곰 설명회' }];
   let pos = 0;
   const link = document.getElementById('highlightLink'), img = document.getElementById('highlightImage');
   const empty = document.getElementById('highlightNoImage'), title = document.getElementById('highlightTitle');
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('highlightNext').addEventListener('click', function () { pos = (pos + 1) % slides.length; render(); });
   fetch('data/blog-posts.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw Error('blog data'); return r.json(); }).then(data => {
     if (!Array.isArray(data.posts)) return;
-    const valid = data.posts.filter(p => p && p.title && /^https:\/\/(?:m\.)?blog\.naver\.com\/hannak74\/\d+/.test(p.url)).slice(0, 3);
+    const valid = data.posts.filter(p => p && p.title && /^https:\/\/(?:m\.)?blog\.naver\.com\/hannak74\/\d+/.test(p.url)).slice(0, 5);
     if (valid.length) { slides = valid; pos = 0; render(); }
   }).catch(() => { });
   render();
