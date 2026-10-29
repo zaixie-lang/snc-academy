@@ -439,6 +439,26 @@
                 </div>
               </li>
 
+
+
+<!-- 카카오톡 상담 -->
+<li class="info-item">
+  <div class="info-icon" aria-hidden="true">💬</div>
+  <div class="info-details">
+    <span class="info-label">카카오톡 상담</span>
+    <a href="http://qr.kakao.com/talk/NucPoBxWR7Q35zZT2graP2.aC5A-"
+       class="tel-link"
+       id="kakao-consult"
+       target="_blank"
+       rel="noopener noreferrer">
+      <strong class="info-value">강원장 카카오톡</strong>
+      <span class="tel-badge" style="background-color:#FEE500; color:#191919;">카톡 문의</span>
+    </a>
+  </div>
+</li>
+
+
+
               <!-- 운영 시간 -->
               <li class="info-item">
                 <div class="info-icon" aria-hidden="true">
@@ -554,6 +574,46 @@
 </a>
   <!-- 자바스크립트 -->
   <script src="js/main.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const kakao = document.getElementById('kakao-consult');
+  if (!kakao) return;
+
+  kakao.addEventListener('click', function (event) {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(
+      navigator.userAgent
+    );
+
+    if (!isMobile) {
+      event.preventDefault();
+
+      const qrWindow = window.open('', '_blank', 'width=440,height=560');
+
+      if (!qrWindow) {
+        alert('팝업 차단을 해제해 주세요.');
+        return;
+      }
+
+      qrWindow.document.title = 'S&C 카카오톡 상담';
+      const heading = qrWindow.document.createElement('h2');
+      heading.textContent = '강원장 카카오톡 상담';
+
+      const description = qrWindow.document.createElement('p');
+      description.textContent = '휴대폰 카카오톡으로 QR코드를 스캔해 주세요.';
+
+      const qr = qrWindow.document.createElement('img');
+      qr.src = new URL('images/kakao-qr.png', document.baseURI).href;
+      qr.alt = '강원장 카카오톡 QR코드';
+      qr.style.cssText = 'width:300px;max-width:90%;';
+
+      qrWindow.document.body.style.cssText =
+        'font-family:sans-serif;text-align:center;padding:30px;';
+      qrWindow.document.body.append(heading, description, qr);
+    }
+  });
+});
+</script>
 </body>
 
 </html>
