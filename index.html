@@ -568,10 +568,7 @@
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
   </button>
-<!-- 카카오톡 상담 연결 준비 -->
-<a id="kakaoConsult" href="#contact" aria-label="카카오톡 상담 준비 중" style="display:none;">
-  카카오톡 상담
-</a>
+
   <!-- 자바스크립트 -->
   <script src="js/main.js"></script>
 
@@ -603,7 +600,9 @@ document.addEventListener('DOMContentLoaded', function () {
       description.textContent = '휴대폰 카카오톡으로 QR코드를 스캔해 주세요.';
 
       const qr = qrWindow.document.createElement('img');
-      qr.src = new URL('images/kakao-qr.png', document.baseURI).href;
+      
+qr.src = 'https://snc-academy.pages.dev/images/kakao-qr.png';
+
       qr.alt = '강원장 카카오톡 QR코드';
       qr.style.cssText = 'width:300px;max-width:90%;';
 
