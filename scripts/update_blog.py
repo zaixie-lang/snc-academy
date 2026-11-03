@@ -5,9 +5,17 @@ import html
 import json
 from pathlib import Path
 import re
+import sys
 import urllib.request
 from urllib.parse import urlsplit, urlunsplit
 import xml.etree.ElementTree as ET
+
+# Configure standard output encoding for environments with legacy codepages (e.g. Windows cp949)
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 ROOT = Path(__file__).resolve().parents[1]
 CFG_FILE = ROOT / 'data/blog-config.json'
@@ -29,10 +37,23 @@ def clean_url(url):
     return urlunsplit((p.scheme, p.netloc.lower(), p.path.rstrip('/'), '', ''))
 
 
-def extract_log_no(url):
-    cleaned = clean_url(url)
-    m = re.search(r'/(?:hannak74/)?(\d+)', cleaned)
+def extract_log_no(val):
+    """Extract Naver blog article ID (logNo) from number, full URL, or mobile URL."""
+    if not val:
+        return ''
+    val = str(val).strip()
+    if val.isdigit():
+        return val
+    cleaned = clean_url(val)
+    m = re.search(r'(?:/(?:hannak74/)?|^)(\d{8,})', cleaned)
+    if m:
+        return m.group(1)
+    m = re.search(r'(\d+)', cleaned)
     return m.group(1) if m else ''
+
+
+def build_naver_url(log_no):
+    return f'https://blog.naver.com/{OWNER}/{log_no}'
 
 
 def is_valid_image_url(url):
@@ -310,21 +331,33 @@ def main():
     posts = []
     default_tags = ['노피곰 설명회', '철산중 영어시험 분석', '강담수학']
 
-    # 1. Process pinned posts (3 items)
+    # 1. Process pinned posts (지정글)
     for index, post_cfg in enumerate(cfg_posts):
-        url = clean_url(post_cfg.get('url', ''))
-        log_no = extract_log_no(url)
-        tag = post_cfg.get('tag') or (default_tags[index] if index < len(default_tags) else 'S&C BLOG')
+        if isinstance(post_cfg, (str, int)):
+            raw_target = str(post_cfg).strip()
+            tag = default_tags[index] if index < len(default_tags) else 'S&C BLOG'
+            custom_title = ''
+            custom_image = ''
+        elif isinstance(post_cfg, dict):
+            raw_target = str(post_cfg.get('id') or post_cfg.get('url') or post_cfg.get('log_no') or '').strip()
+            tag = post_cfg.get('tag') or (default_tags[index] if index < len(default_tags) else 'S&C BLOG')
+            custom_title = post_cfg.get('title', '').strip()
+            custom_image = post_cfg.get('image', '').strip()
+        else:
+            continue
+
+        log_no = extract_log_no(raw_target)
+        if not log_no:
+            continue
+
+        url = build_naver_url(log_no)
 
         # Use title/image from config if explicitly set; otherwise fetch from Naver blog
-        title = post_cfg.get('title', '').strip()
-        custom_image = post_cfg.get('image', '').strip()
-
         auto_title, auto_image_url = '', ''
-        if not title or not custom_image:
+        if not custom_title or not custom_image:
             auto_title, auto_image_url = fetch_post_details(log_no)
 
-        final_title = title or auto_title or 'S&C ACADEMY 공식 블로그'
+        final_title = custom_title or auto_title or 'S&C ACADEMY 공식 블로그'
 
         # Determine image
         if custom_image and (ROOT / custom_image).is_file():
@@ -393,7 +426,10 @@ def main():
 
     print(f'Successfully updated {len(posts)} rolling posts.')
     for idx, p in enumerate(posts):
-        print(f"  [{idx + 1}] {p['tag']} | {p['title'][:40]}... | {p['image']}")
+        try:
+            print(f"  [{idx + 1}] {p['tag']} | {p['title'][:40]}... | {p['image']}")
+        except UnicodeEncodeError:
+            print(f"  [{idx + 1}] {p['tag']} | (title encoded) | {p['image']}")
 
 
 if __name__ == '__main__':
