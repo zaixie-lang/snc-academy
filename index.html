@@ -46,7 +46,7 @@
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": https://sncedu.kr/#website",
+        "@id": "https://sncedu.kr/#website",
         "url": "https://sncedu.kr/",
         "name": "에쓰앤씨학원",
         "alternateName": ["에스앤씨학원", "S&C Academy", "SNC Academy"],
@@ -63,10 +63,9 @@
         "telephone": "02-2625-0505",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "철산로 15 웅비빌딩 4층",
+          "streetAddress": "디지털로 64 철산한신아파트 상가 2층",
           "addressLocality": "광명시 철산동",
           "addressRegion": "경기도",
-          "postalCode": "14241",
           "addressCountry": "KR"
         },
         "sameAs": [
@@ -83,6 +82,12 @@
 
   <!-- 스타일시트 -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/nopigom.css">
+  <link rel="stylesheet" href="css/brand-gallery.css?v=2611156">
+  <style>
+    .program-direct { display:flex; align-items:center; justify-content:space-between; width:100%; border-top:1px solid var(--border-subtle); color:var(--color-accent-blue); font-size:0.875rem; font-weight:800; margin-top:16px; padding-top:12px; }
+    @media(max-width:767px) { .program-direct { margin-top:10px; padding-top:9px; } }
+  </style>
 </head>
 
 <body>
@@ -288,12 +293,7 @@
             <h3 class="program-title">한솔 노피곰</h3>
             <div class="program-divider"></div>
             <p class="program-desc">6~10세 · 한글부터 문해력·수해력까지</p>
-            <button class="program-expand" type="button" aria-expanded="false" aria-controls="program-detail-1">자세히 보기
-              <span aria-hidden="true">⌄</span></button>
-            <div class="program-detail" id="program-detail-1" hidden>
-              <p>이 프로그램의 교육 방향과 수업에 관한 소식은 S&C 공식 블로그에서 확인하실 수 있습니다.</p>
-              <a href="https://blog.naver.com/hannak74/224204637420" target="_blank" rel="noopener noreferrer">관련 블로그 살펴보기 ↗</a>
-            </div>
+            <button class="program-expand" type="button" aria-expanded="false" aria-controls="program-detail-1">자세히 보기 <span aria-hidden="true">⌄</span></button>
           </article>
 
           <!-- 2. 비상 잉글리시팝 -->
@@ -335,6 +335,99 @@
             </div>
           </article>
 
+          <div class="brand-inline nopigom-container" id="program-detail-1" hidden>
+
+
+<section aria-label="우리 아이의 첫 학원, 즐거운 배움의 시작 - S&amp;C 한솔 노피곰" class="nopigom-hero-banner">
+<h2 class="visually-hidden">우리 아이의 첫 학원, 즐거운 배움의 시작 - S&amp;C ACADEMY 철산한신점 한솔 노피곰 (6~10세 · 문해력 · 수해력 · 사고력)</h2>
+<div class="hero-banner-wrap">
+<img alt="S&amp;C ACADEMY 철산한신점 노피곰 - 우리 아이의 첫 학원, 즐거운 배움의 시작 (6~10세 문해력·수해력·사고력)" class="hero-banner-img" decoding="async" loading="eager" src="images/brands/nopigom/hero-classroom.png" style="width: 100% !important; max-width: 100% !important; height: auto !important; max-height: none !important; display: block !important; margin: 0 !important; padding: 0 !important;"/>
+</div>
+</section>
+
+<section aria-label="노피곰 교육 소개" class="nopigom-intro-card">
+<h2 class="nopigom-intro-headline">처음 배우는 즐거움이 오래가는 공부 습관으로</h2>
+<p class="nopigom-intro-text">
+        한글을 읽는 것과 글의 뜻을 이해하는 것은 다릅니다.<br/>
+        숫자를 세는 것과 수의 관계를 아는 것도 다르지요.<br/><br/>
+        노피곰은 아이의 발달 단계에 맞춰 읽고, 이해하고, 생각하는 기초학습의 힘을 차근차근 길러갑니다.
+      </p>
+</section>
+
+<section aria-labelledby="core-heading" class="nopigom-cards-section">
+<h2 class="nopigom-section-title" id="core-heading">노피곰의 3대 기초학습 영역</h2>
+<div class="core-cards-grid">
+<!-- 01 문해력 -->
+<article class="core-card type-reading">
+<!-- 공식 삽화 영역 (공식 캐릭터 원본 등록 대기용 빈 슬롯) -->
+
+<div class="core-card-header">
+<span class="core-card-num">01</span>
+</div>
+<h3 class="core-card-title">문해력</h3>
+<p class="core-card-subtitle">글자를 넘어 이해하는 읽기</p>
+<p class="core-card-desc">
+            파닉스 한글로 글자의 원리를 익히고, 수준별 읽기와 독해 활동으로 문장의 뜻을 이해하고 자기 생각을 표현해 봅니다.
+          </p>
+</article>
+<!-- 02 수해력 -->
+<article class="core-card type-math">
+<!-- 공식 삽화 영역 (공식 캐릭터 원본 등록 대기용 빈 슬롯) -->
+
+<div class="core-card-header">
+<span class="core-card-num">02</span>
+</div>
+<h3 class="core-card-title">수해력</h3>
+<p class="core-card-subtitle">계산 전에 수의 원리 이해하기</p>
+<p class="core-card-desc">
+            수감각 연산과 수해력 수학으로 수의 관계를 살피고, 단순한 답 찾기를 넘어 왜 그렇게 되는지 생각해 봅니다.
+          </p>
+</article>
+<!-- 03 사고력 -->
+<article class="core-card type-thinking">
+<!-- 공식 삽화 영역 (공식 캐릭터 원본 등록 대기용 빈 슬롯) -->
+
+<div class="core-card-header">
+<span class="core-card-num">03</span>
+</div>
+<h3 class="core-card-title">사고력</h3>
+<p class="core-card-subtitle">스스로 시도하고 해결하는 경험</p>
+<p class="core-card-desc">
+            두뇌 플레이와 다양한 사고 활동으로 관찰하고 비교하며 방법을 찾아갑니다. 틀려도 다시 시도하는 경험을 소중히 여깁니다.
+          </p>
+</article>
+</div>
+</section>
+
+<section aria-label="개별 맞춤 지도" class="growth-speed-box">
+<h3 class="growth-speed-title">아이마다 다른 출발점, 다른 성장 속도</h3>
+<p class="growth-speed-desc">
+        단계별 학습과 키즈그릿 검사 등을 참고해 아이의 강점과 보완할 부분을 세심하게 살핍니다.
+      </p>
+</section>
+
+<section class="nopigom-gallery-section"><h2 class="nopigom-section-title">노피곰 갤러리</h2><div class="brand-gallery" id="nopigomGallery"></div></section><section class="nopigom-blog-section"><h2 class="nopigom-section-title">노피곰 더 알아보기</h2><div class="brand-related" id="nopigomRelated"><a class="blog-featured-card" href="https://blog.naver.com/hannak74/224461016274" rel="noopener noreferrer" target="_blank">관련 블로그 살펴보기 ↗</a></div></section><section aria-labelledby="cta-heading" class="nopigom-cta-section">
+<h2 class="cta-heading" id="cta-heading">입학 및 수업 상담 안내</h2>
+<p class="cta-subtext">궁금하신 점은 언제든 편안하게 문의해 주세요. 원활한 상담을 위해 사전 예약을 권장합니다.</p>
+<div class="cta-buttons-wrap">
+<!-- 네이버 예약 버튼: URL 미확인 상태이므로 클릭 시 안내 모달 호출 -->
+<button class="btn-cta btn-cta-naver" id="btnNaverBooking" type="button">
+<span aria-hidden="true">📅</span>
+<span>네이버 예약</span>
+</button>
+<!-- 카카오톡 상담 버튼: 기존 확인된 카톡 상담 링크 -->
+<a class="btn-cta btn-cta-kakao" href="http://qr.kakao.com/talk/NucPoBxWR7Q35zZT2graP2.aC5A-" id="nopigomKakaoConsult" rel="noopener noreferrer" target="_blank">
+<span aria-hidden="true">💬</span>
+<span>카카오톡 상담</span>
+</a>
+<!-- 전화하기 버튼 -->
+<a aria-label="전화 걸기 02-2625-0505" class="btn-cta btn-cta-tel" href="tel:0226250505">
+<span aria-hidden="true">📞</span>
+<span>전화하기 (02-2625-0505)</span>
+</a>
+</div>
+</section>
+<button type="button" class="brand-close">상세 안내 접기 ∧</button></div>
           <!-- 4. 강담수학 -->
           <article class="program-card">
             <div class="program-header">
@@ -644,9 +737,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  const kakao = document.getElementById('kakao-consult');
-  if (!kakao) return;
+  const kakaoButtons = document.querySelectorAll('#kakao-consult, #nopigomKakaoConsult');
 
+  kakaoButtons.forEach(function (kakao) {
   kakao.addEventListener('click', function (event) {
     const isMobile = /Android|iPhone|iPad|iPod/i.test(
       navigator.userAgent
@@ -681,8 +774,65 @@ qr.src = 'https://sncedu.kr/images/kakao-qr.png';
       qrWindow.document.body.append(heading, description, qr);
     }
   });
+  });
 });
 </script>
-</body>
+<div class="nopigom-modal-overlay" hidden="" id="naverModal" style="display: none;">
+<div aria-labelledby="modalTitle" aria-modal="true" class="nopigom-modal" role="dialog">
+<h3 id="modalTitle">네이버 예약 안내</h3>
+<p id="modalDesc">
+        네이버 예약 서비스 연결을 준비 중입니다.<br/>
+        빠른 상담 예약을 원하시면 <strong>전화(02-2625-0505)</strong> 또는 <strong>카카오톡 상담</strong>을 이용해 주시기 바랍니다.
+      </p>
+<button id="btnModalClose" type="button">확인</button>
+</div>
+</div><script>
+    // 네이버 예약 안내 모달 제어
+    document.addEventListener('DOMContentLoaded', function () {
+      const btnBooking = document.getElementById('btnNaverBooking');
+      const modal = document.getElementById('naverModal');
+      const btnClose = document.getElementById('btnModalClose');
+
+      if (!btnBooking || !modal || !btnClose) return;
+
+      function openModal() {
+        modal.hidden = false;
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+      }
+
+      function closeModal() {
+        modal.hidden = true;
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+      }
+
+      // 네이버 예약 버튼을 눌렀을 때만 열림
+      btnBooking.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal();
+      });
+
+      // 확인 버튼 누르면 닫힘
+      btnClose.addEventListener('click', function (e) {
+        e.preventDefault();
+        closeModal();
+      });
+
+      // 모달 바깥 배경 클릭 시 닫힘
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // ESC 키 누르면 닫힘
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && (!modal.hidden || modal.classList.contains('active'))) {
+          closeModal();
+        }
+      });
+    });
+  </script><script src="js/brand-gallery.js?v=2611156"></script></body>
 
 </html>

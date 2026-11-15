@@ -875,17 +875,17 @@ ol {
 }
 
 /* 한솔 노피곰: 세로형 로고 비율을 고려하여 시원하게 확대 (1.45배) */
-img[src*="nopigom"] {
+.program-brand-logo[src*="nopigom"] {
   max-height: 78px;
 }
 
 /* 비상 잉글리시아이: 가로 및 글자 가독성 우선 확대 */
-img[src*="english-eye"] {
+.program-brand-logo[src*="english-eye"] {
   max-height: 72px;
 }
 
 /* 비상 잉글리시팝: 정사각형 로고 균형 */
-img[src*="english-pop"] {
+.program-brand-logo[src*="english-pop"] {
   max-height: 68px;
 }
 
@@ -1791,9 +1791,9 @@ img[src*="english-pop"] {
   }
 
   .program-brand-logo,
-  img[src*="nopigom"],
-  img[src*="english-eye"],
-  img[src*="english-pop"] {
+  .program-brand-logo[src*="nopigom"],
+  .program-brand-logo[src*="english-eye"],
+  .program-brand-logo[src*="english-pop"] {
     max-height: 50px;
   }
 
@@ -1931,9 +1931,9 @@ img[src*="english-pop"] {
   }
 
   .program-brand-logo,
-  img[src*="nopigom"],
-  img[src*="english-eye"],
-  img[src*="english-pop"] {
+  .program-brand-logo[src*="nopigom"],
+  .program-brand-logo[src*="english-eye"],
+  .program-brand-logo[src*="english-pop"] {
     max-height: 44px;
   }
 

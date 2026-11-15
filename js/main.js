@@ -13,16 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 헤더 그림자 효과
     if (scrollY > 30) {
-      header.classList.add('scrolled');
+      if (header) header.classList.add('scrolled');
     } else {
-      header.classList.remove('scrolled');
+      if (header) header.classList.remove('scrolled');
     }
 
     // 맨 위로 가기 버튼 표시/숨김
     if (scrollY > 400) {
-      backToTopBtn.classList.add('visible');
+      if (backToTopBtn) backToTopBtn.classList.add('visible');
     } else {
-      backToTopBtn.classList.remove('visible');
+      if (backToTopBtn) backToTopBtn.classList.remove('visible');
     }
   };
 

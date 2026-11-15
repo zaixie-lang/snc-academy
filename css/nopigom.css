@@ -1,0 +1,732 @@
+/* ==========================================================================
+   노피곰 상세 페이지 스타일 (css/nopigom.css)
+   - 따뜻한 크림색, 밝은 하늘색, 차분한 네이비, 부드러운 살구색 통일
+   - 상단 히어로 배너 (hero-classroom.png) 반응형
+   - 모바일 반응형: 이미지와 문구 세로 배치
+   ========================================================================== */
+
+:root {
+  /* 메인 컬러 팔레트 */
+  --nopigom-bg-main: #fdfbf7;        /* 따뜻한 크림색 메인 바탕 */
+  --nopigom-bg-cream: #faf5ec;       /* 은은한 크림 카드 배경 */
+  --nopigom-bg-card: #ffffff;        /* 순백 카드 배경 */
+
+  /* 차분한 네이비 (제목 및 핵심 강조) */
+  --nopigom-navy-dark: #152238;
+  --nopigom-navy-title: #1a2b4c;
+  --nopigom-navy-sub: #2d4363;
+
+  /* 밝은 하늘색 (산뜻한 교육 포인트) */
+  --nopigom-sky-light: #f0f9ff;
+  --nopigom-sky-soft: #e0f2fe;
+  --nopigom-sky-border: #bae6fd;
+  --nopigom-sky-primary: #0284c7;
+  --nopigom-sky-dark: #0369a1;
+
+  /* 부드러운 살구색 (S&C학원 노피곰의 약속 영역) */
+  --nopigom-apricot-bg: #fff7ed;
+  --nopigom-apricot-soft: #ffedd5;
+  --nopigom-apricot-border: #fed7aa;
+  --nopigom-apricot-accent: #c2410c;
+  --nopigom-apricot-text: #9a3412;
+
+  /* 영역별 부드러운 컬러 톤 */
+  --nopigom-reading-slot: #f0f9ff;
+  --nopigom-reading-border: #bae6fd;
+  --nopigom-math-slot: #fefce8;
+  --nopigom-math-border: #fef08a;
+  --nopigom-thinking-slot: #fff1f2;
+  --nopigom-thinking-border: #fecdd3;
+
+  /* 텍스트 & 테두리 */
+  --nopigom-text-body: #334155;
+  --nopigom-text-muted: #64748b;
+  --nopigom-border-light: #e2e8f0;
+
+  /* 라운드 & 그림자 */
+  --nopigom-radius-sm: 10px;
+  --nopigom-radius-md: 16px;
+  --nopigom-radius-lg: 24px;
+  --nopigom-shadow-soft: 0 8px 24px rgba(26, 43, 76, 0.05);
+  --nopigom-shadow-hover: 0 12px 32px rgba(2, 132, 199, 0.12);
+}
+
+body.nopigom-page {
+  background-color: var(--nopigom-bg-main);
+  color: var(--nopigom-text-body);
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  line-height: 1.75;
+  word-break: keep-all;
+  margin: 0;
+  padding: 0;
+}
+
+/* 스크린리더/접근성 숨김 텍스트 */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 상단 서브 네비게이션 */
+.nopigom-subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--nopigom-sky-border);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+}
+
+.nopigom-subnav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.subnav-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--nopigom-navy-title);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.subnav-back-link:hover {
+  color: var(--nopigom-sky-primary);
+}
+
+.subnav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.subnav-brand-logo {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+}
+
+.subnav-tag {
+  font-size: 13px;
+  color: var(--nopigom-text-muted);
+  font-weight: 600;
+  background: var(--nopigom-sky-light);
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--nopigom-sky-border);
+}
+
+/* 메인 컨테이너 */
+.nopigom-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 36px 20px 80px;
+}
+
+/* ==========================================================================
+   1. 상단 히어로 배너 (images/brands/nopigom/hero-classroom.png 적용)
+   ========================================================================== */
+.nopigom-hero-banner {
+  margin-bottom: 36px;
+  width: 100%;
+}
+
+.hero-banner-wrap {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: var(--nopigom-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--nopigom-shadow-soft);
+  border: 1.5px solid var(--nopigom-sky-border);
+  background: transparent;
+  line-height: 0;
+  font-size: 0;
+  transition: box-shadow 0.3s ease;
+}
+
+.hero-banner-wrap:hover {
+  box-shadow: var(--nopigom-shadow-hover);
+}
+
+/* style.css의 img[src*="nopigom"] max-height: 78px 제한 완전 무효화 및 100% 전폭 반영 */
+.nopigom-hero-banner .hero-banner-wrap img.hero-banner-img,
+.hero-banner-img,
+img[src*="hero-classroom"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  display: block !important;
+  object-fit: contain !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* ==========================================================================
+   2. 도입 인트로 카드 (부드러운 크림 & 포인트 블루)
+   ========================================================================== */
+.nopigom-intro-card {
+  background: #ffffff;
+  border-radius: var(--nopigom-radius-md);
+  border: 1px solid var(--nopigom-sky-border);
+  border-left: 6px solid var(--nopigom-sky-primary);
+  padding: 36px 36px;
+  margin-bottom: 36px;
+  box-shadow: var(--nopigom-shadow-soft);
+}
+
+.nopigom-intro-headline {
+  color: var(--nopigom-navy-title);
+  font-size: clamp(20px, 2.4vw, 23px);
+  font-weight: 800;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.nopigom-intro-text {
+  font-size: 16.5px;
+  color: #334155;
+  margin: 0;
+  line-height: 1.85;
+}
+
+/* ==========================================================================
+   3. 문해력·수해력·사고력 카드 (공식 캐릭터 삽화 영역 탑재, 갈색 이모지 없음)
+   ========================================================================== */
+.nopigom-cards-section {
+  margin-bottom: 36px;
+}
+
+.nopigom-section-title {
+  color: var(--nopigom-navy-title);
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nopigom-section-title::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 22px;
+  background-color: var(--nopigom-sky-primary);
+  border-radius: 3px;
+}
+
+.core-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.core-card {
+  background: #ffffff;
+  border-radius: var(--nopigom-radius-md);
+  border: 1.5px solid var(--nopigom-border-light);
+  padding: 24px 22px 28px;
+  box-shadow: var(--nopigom-shadow-soft);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+}
+
+.core-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--nopigom-shadow-hover);
+}
+
+/* 카드 상단 공식 삽화 전용 영역 (비워둔 상태) */
+.card-character-slot {
+  width: 100%;
+  height: 80px;
+  border-radius: var(--nopigom-radius-sm);
+  margin-bottom: 18px;
+  border: 1.5px dashed;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.card-character-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 영역별 삽화 슬롯 테마 컬러 */
+.slot-reading {
+  background: var(--nopigom-reading-slot);
+  border-color: var(--nopigom-reading-border);
+}
+
+.slot-math {
+  background: var(--nopigom-math-slot);
+  border-color: var(--nopigom-math-border);
+}
+
+.slot-thinking {
+  background: var(--nopigom-thinking-slot);
+  border-color: var(--nopigom-thinking-border);
+}
+
+/* 카드 헤더 정보 */
+.core-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.core-card-num {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.type-reading { border-top: 4px solid #0284c7; }
+.type-reading .core-card-num { background: #e0f2fe; color: #0284c7; }
+
+.type-math { border-top: 4px solid #eab308; }
+.type-math .core-card-num { background: #fef9c3; color: #a16207; }
+
+.type-thinking { border-top: 4px solid #f43f5e; }
+.type-thinking .core-card-num { background: #ffe4e6; color: #e11d48; }
+
+.core-card-title {
+  color: var(--nopigom-navy-title);
+  font-size: 19px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.core-card-subtitle {
+  color: var(--nopigom-navy-sub);
+  font-size: 14.5px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+
+.core-card-desc {
+  font-size: 14.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   4. 개별 성장 속도 안내 박스 (밝은 하늘색 통일)
+   ========================================================================== */
+.growth-speed-box {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1.5px solid var(--nopigom-sky-border);
+  border-radius: var(--nopigom-radius-md);
+  padding: 24px 30px;
+  margin-bottom: 36px;
+  box-shadow: var(--nopigom-shadow-soft);
+}
+
+.growth-speed-title {
+  color: var(--nopigom-navy-title);
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.growth-speed-desc {
+  color: #1e293b;
+  font-size: 15px;
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   5. S&C학원 노피곰의 약속 (부드러운 살구색 배경으로 자연스러운 구분)
+   ========================================================================== */
+.promise-section {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border: 1.5px solid var(--nopigom-apricot-border);
+  border-radius: var(--nopigom-radius-lg);
+  padding: 42px 38px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 24px rgba(194, 65, 12, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.promise-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  background: var(--nopigom-apricot-accent);
+}
+
+.promise-badge {
+  display: inline-block;
+  background: #ffffff;
+  color: var(--nopigom-apricot-accent);
+  border: 1px solid var(--nopigom-apricot-border);
+  font-size: 12.5px;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 6px rgba(194, 65, 12, 0.08);
+}
+
+.promise-title {
+  color: var(--nopigom-navy-title);
+  font-size: clamp(22px, 2.8vw, 26px);
+  font-weight: 800;
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+}
+
+.promise-body {
+  font-size: 16.5px;
+  color: #334155;
+  line-height: 1.85;
+  margin: 0;
+}
+
+.promise-body p {
+  margin: 0 0 10px;
+}
+.promise-body p:last-child {
+  margin-bottom: 0;
+}
+
+.promise-signature {
+  margin-top: 18px;
+  font-weight: 800;
+  color: var(--nopigom-navy-dark);
+}
+
+/* ==========================================================================
+   6. 블로그 지정글 연동 섹션
+   ========================================================================== */
+.nopigom-blog-section {
+  margin-bottom: 40px;
+}
+
+.blog-featured-card {
+  background: #ffffff;
+  border: 1.5px solid var(--nopigom-sky-border);
+  border-radius: var(--nopigom-radius-md);
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--nopigom-shadow-soft);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.blog-featured-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--nopigom-sky-primary);
+  box-shadow: var(--nopigom-shadow-hover);
+}
+
+.blog-featured-info {
+  flex: 1;
+}
+
+.blog-badge {
+  display: inline-block;
+  background: var(--nopigom-navy-title);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.blog-card-title {
+  color: var(--nopigom-navy-title);
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.blog-card-desc {
+  font-size: 14px;
+  color: var(--nopigom-text-muted);
+  margin: 0;
+}
+
+.blog-card-arrow {
+  color: var(--nopigom-sky-primary);
+  font-size: 20px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   7. 갤러리 섹션
+   ========================================================================== */
+.nopigom-gallery-section {
+  margin-bottom: 44px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.gallery-empty-notice {
+  background: #ffffff;
+  border: 1.5px dashed var(--nopigom-sky-border);
+  border-radius: var(--nopigom-radius-md);
+  padding: 36px 20px;
+  text-align: center;
+  color: var(--nopigom-text-muted);
+  font-size: 15px;
+}
+
+.gallery-empty-notice span {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.gallery-item {
+  border-radius: var(--nopigom-radius-sm);
+  overflow: hidden;
+  box-shadow: var(--nopigom-shadow-soft);
+  aspect-ratio: 4 / 3;
+  background: #eee;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+/* ==========================================================================
+   8. 하단 3버튼 액션 바 (네이버 예약, 카카오톡 상담, 전화하기)
+   ========================================================================== */
+.nopigom-cta-section {
+  background: #ffffff;
+  border: 1.5px solid var(--nopigom-sky-border);
+  border-radius: var(--nopigom-radius-lg);
+  padding: 38px 30px;
+  text-align: center;
+  box-shadow: var(--nopigom-shadow-soft);
+}
+
+.cta-heading {
+  color: var(--nopigom-navy-title);
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.cta-subtext {
+  font-size: 15px;
+  color: var(--nopigom-text-muted);
+  margin: 0 0 24px;
+}
+
+.cta-buttons-wrap {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  min-width: 180px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-cta-naver {
+  background-color: #03c75a;
+  color: #ffffff;
+}
+.btn-cta-naver:hover {
+  background-color: #02b150;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(3, 199, 90, 0.3);
+}
+
+.btn-cta-kakao {
+  background-color: #fee500;
+  color: #191919;
+}
+.btn-cta-kakao:hover {
+  background-color: #fada0a;
+  color: #191919;
+  box-shadow: 0 6px 16px rgba(254, 229, 0, 0.4);
+}
+
+.btn-cta-tel {
+  background-color: var(--nopigom-navy-title);
+  color: #ffffff;
+}
+.btn-cta-tel:hover {
+  background-color: var(--nopigom-navy-dark);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(26, 43, 76, 0.3);
+}
+
+/* ==========================================================================
+   9. 모달 알림
+   ========================================================================== */
+.nopigom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.nopigom-modal-overlay.active {
+  display: flex;
+}
+
+.nopigom-modal-overlay[hidden] {
+  display: none !important;
+}
+
+.nopigom-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 34px 28px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--nopigom-sky-border);
+}
+
+.nopigom-modal h3 {
+  margin: 0 0 12px;
+  color: var(--nopigom-navy-title);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.nopigom-modal p {
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0 0 22px;
+}
+
+.nopigom-modal button {
+  background: var(--nopigom-navy-title);
+  color: #ffffff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nopigom-modal button:hover {
+  background: var(--nopigom-sky-primary);
+}
+
+/* ==========================================================================
+   10. 모바일 반응형 미디어 쿼리 (768px 이하)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .nopigom-container {
+    padding: 20px 16px 60px;
+  }
+
+  .nopigom-hero-banner {
+    margin-bottom: 24px;
+  }
+
+  .hero-banner-wrap {
+    border-radius: var(--nopigom-radius-md);
+  }
+
+  .nopigom-intro-card {
+    padding: 26px 20px;
+  }
+
+  /* 3대 핵심 카드: 세로로 1열 쌓임 */
+  .core-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .card-character-slot {
+    height: 70px;
+  }
+
+  .promise-section {
+    padding: 30px 20px;
+  }
+
+  .cta-buttons-wrap {
+    flex-direction: column;
+  }
+
+  .btn-cta {
+    width: 100%;
+    min-width: unset;
+  }
+}
