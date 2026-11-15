@@ -2,17 +2,17 @@
   "gallery": [
     {
       "type": "image",
-      "file": "books.jpg",
+      "file": "books.webp",
       "title": "읽는 즐거움을 키우는 노피곰 교재"
     },
     {
       "type": "image",
-      "file": "class-group.jpg",
+      "file": "class-group.webp",
       "title": "각자의 수준에 맞춘 학습"
     },
     {
       "type": "image",
-      "file": "math.jpg",
+      "file": "math.webp",
       "title": "차근차근 키워가는 수해력"
     }
   ],
