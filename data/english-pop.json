@@ -11,9 +11,8 @@
       "title": "디지털과 교재의 만남"
     },
     {
-      "type": "video",
-      "file": "class.mp4",
-      "poster": "poster.webp",
+      "type": "image",
+      "file": "poster.webp",
       "title": "즐겁게 참여하는 영어 수업"
     }
   ],

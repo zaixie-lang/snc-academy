@@ -1,25 +1,40 @@
-(()=>{const panel=document.getElementById('program-detail-1'), gallery=document.getElementById('nopigomGallery'), related=document.getElementById('nopigomRelated'), toggle=document.querySelector('[aria-controls="program-detail-1"]');if(!panel||!gallery||!related||!toggle)return;
-const grid=panel.parentElement, owner=toggle.closest('.program-card');
-const marker=document.createComment('desktop brand panel position');
-panel.before(marker);
-const mobile=window.matchMedia('(max-width: 767px)');
-function placePanel(){if(mobile.matches)owner.after(panel);else marker.after(panel);}
-placePanel();
-mobile.addEventListener('change',placePanel);
-function moveTo(target){const header=document.getElementById('header');const top=target.getBoundingClientRect().top+window.scrollY-(header?header.getBoundingClientRect().bottom:0)-12;window.scrollTo({top:Math.max(0,top),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});}
-toggle.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();const opening=panel.hidden;document.querySelectorAll('.program-expand').forEach(b=>{b.setAttribute('aria-expanded','false');const p=document.getElementById(b.getAttribute('aria-controls'));if(p)p.hidden=true;});if(opening){const hero=panel.querySelector("img[data-src]");if(hero){hero.src=hero.dataset.src;hero.removeAttribute("data-src");}panel.hidden=false;toggle.setAttribute('aria-expanded','true');requestAnimationFrame(()=>requestAnimationFrame(()=>{if(!panel.hidden)moveTo(panel)}));}else{requestAnimationFrame(()=>moveTo(toggle.closest('article')||toggle));}},true);
-const viewer=document.createElement('dialog');
-viewer.className='brand-photo-viewer';
-viewer.setAttribute('aria-label','갤러리 사진 확대');
-const closePhoto=document.createElement('button');
-closePhoto.type='button';closePhoto.textContent='닫기 ×';
-const fullPhoto=document.createElement('img');
-viewer.append(closePhoto,fullPhoto);document.body.append(viewer);
-closePhoto.onclick=()=>viewer.close();
-viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});
-viewer.addEventListener('close',()=>{fullPhoto.removeAttribute('src')});
-const el=(tag,text)=>{const e=document.createElement(tag);if(text)e.textContent=text;return e};const base='images/brands/nopigom/gallery/';const validFile=s=>typeof s==='string'&&/^[\w.-]+$/.test(s);const validId=s=>typeof s==='string'&&/^[\w-]{11}$/.test(s);const thumb=id=>'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';
-function stop(){panel.querySelectorAll('video').forEach(v=>v.pause());panel.querySelectorAll('iframe').forEach(f=>f.remove());panel.querySelectorAll('.media-launch').forEach(b=>b.hidden=false)}
-new MutationObserver(()=>{if(panel.hidden)stop()}).observe(panel,{attributes:true,attributeFilter:['hidden']});panel.querySelector('.brand-close').onclick=()=>{toggle.click();toggle.focus({preventScroll:true})};
-fetch('data/nopigom.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(async c=>{for(const item of (c.gallery||[]).slice(0,3)){const fig=el('figure');let m;if(item.type==='image'&&validFile(item.file)){m=el('a');m.href=base+item.file;m.target='_blank';m.rel='noopener';const im=el('img');im.src=m.href;im.alt=item.title||'';im.loading='lazy';m.append(im);m.setAttribute('aria-label',(item.title||'사진')+' 확대 보기');m.addEventListener('click',e=>{if(typeof viewer.showModal!=='function'||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();fullPhoto.src=m.href;fullPhoto.alt=im.alt;viewer.showModal()})}else if(item.type==='video'&&validFile(item.file)){m=el('video');m.src=base+item.file;m.controls=true;m.preload='none';m.playsInline=true;if(validFile(item.poster))m.poster=base+item.poster}else if(item.type==='youtube'&&validId(item.id)){m=el('button');m.className='media-launch';m.setAttribute('aria-label','영상 재생');const im=el('img');im.src=thumb(item.id);im.alt='영상 재생 ▶';m.append(im);m.onclick=()=>{const f=el('iframe');f.src='https://www.youtube-nocookie.com/embed/'+item.id+'?autoplay=1';f.title=item.title||'소개 영상';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;m.hidden=true;fig.insertBefore(f,m)}}if(m){fig.append(m,el('figcaption',item.title));gallery.append(fig)}}
-related.replaceChildren();function card(url,title,image,label){const a=el('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';if(image){const im=el('img');im.src=image;im.alt='';im.loading='lazy';im.onerror=()=>im.remove();a.append(im)}a.append(el('span',label),el('strong',title));related.append(a)}if(c.youtube&&validId(c.youtube.id))card('https://www.youtube.com/watch?v='+c.youtube.id,c.youtube.title||'관련 영상',thumb(c.youtube.id),'유튜브 영상 보기 ↗');if(c.blog&&/^\d+$/.test(c.blog.id)){let image=c.blog.image||'';try{const r=await fetch('data/blog-posts.json',{cache:'no-store'});const d=await r.json();const post=(d.posts||[]).find(x=>x.url&&x.url.endsWith('/'+c.blog.id));if(post&&post.image)image=post.image}catch{}card('https://blog.naver.com/hannak74/'+c.blog.id,c.blog.title,image,'관련 블로그 살펴보기 ↗')}if(typeof c.bookingUrl==='string'&&/^https:\/\/(?:[^/]+\.)?naver\.com\//.test(c.bookingUrl)){const b=document.getElementById('btnNaverBooking');b.addEventListener('click',e=>{e.stopImmediatePropagation();window.open(c.bookingUrl,'_blank','noopener')},true)}}).catch(()=>{gallery.textContent='갤러리를 불러오지 못했습니다.'});})();
+/* Shared still-image gallery and brand detail controller. */
+(()=>{
+ const el=(tag,text)=>{const e=document.createElement(tag);if(text)e.textContent=text;return e};
+ const validFile=s=>typeof s==='string'&&/^[\w.-]+\.(webp|jpe?g|png|avif)$/i.test(s);
+ const validId=s=>typeof s==='string'&&/^[\w-]{11}$/.test(s);
+ const thumb=id=>'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';
+ const mq=matchMedia('(max-width:767px)');
+ const viewer=el('dialog');viewer.className='brand-photo-viewer';viewer.setAttribute('aria-label','갤러리 사진 확대');
+ const close=el('button','닫기 ×'),full=el('img');close.type='button';viewer.append(close,full);document.body.append(viewer);
+ close.onclick=()=>viewer.close();viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});viewer.addEventListener('close',()=>full.removeAttribute('src'));
+ function scroll(target){const h=document.getElementById('header');window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top+scrollY-(h?h.getBoundingClientRect().bottom:0)-12),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}
+ function arrange(g){
+  const fs=[...g.children].filter(f=>f.tagName==='FIGURE'),ps=fs.filter(f=>f.classList.contains('is-portrait'));
+  const n=fs.length,k=ps.length;
+  g.dataset.layout=n===2&&k===0?'a':n===2&&k===2?'b':n===3&&k===1?'c':n===4&&k===0?'d':'fallback';
+  fs.forEach(f=>f.style.removeProperty('--gallery-row'));
+  if(g.dataset.layout==='c')fs.filter(f=>!f.classList.contains('is-portrait')).forEach((f,i)=>f.style.setProperty('--gallery-row',i+1));
+ }
+ function card(r,url,title,image,label){const a=el('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';if(image){const im=el('img');im.alt='';im.loading='eager';im.decoding='async';im.onerror=()=>im.remove();im.src=image;a.append(im)}if(label)a.append(el('span',label));a.append(el('strong',title));r.append(a)}
+ for(const p of document.querySelectorAll('.brand-inline[data-brand]')){
+  const slug=p.dataset.brand;if(!/^[a-z0-9-]+$/.test(slug))continue;
+  const t=document.querySelector('[aria-controls="'+p.id+'"]'),g=p.querySelector('.brand-gallery'),r=p.querySelector('.brand-related');if(!t||!g||!r)continue;
+  const owner=t.closest('.program-card'),marker=document.createComment('desktop brand position');p.before(marker);
+  function place(){if(mq.matches)owner.after(p);else marker.after(p)}place();mq.addEventListener('change',place);
+  const base='images/brands/'+slug+'/gallery/';let loaded=false;
+  async function load(){if(loaded)return;loaded=true;try{
+   const response=await fetch('data/'+slug+'.json',{cache:'no-store'});if(!response.ok)throw Error();const c=await response.json();g.replaceChildren();r.replaceChildren();
+   for(const item of (c.gallery||[]).filter(x=>x.type==='image'&&validFile(x.file)).slice(0,4)){
+    const f=el('figure'),a=el('a'),im=el('img'),cap=el('figcaption',item.title||'');a.href=base+item.file;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',(item.title||'사진')+' 확대 보기');im.alt=item.title||'';im.loading='eager';im.decoding='async';
+    const orient=()=>{if(!im.naturalWidth)return;f.classList.toggle('is-portrait',im.naturalHeight>im.naturalWidth);arrange(g)};im.addEventListener('load',orient);im.addEventListener('error',()=>{f.remove();arrange(g)});a.append(im);f.append(a,cap);g.append(f);im.src=a.href;if(im.complete)orient();
+    a.addEventListener('click',e=>{if(typeof viewer.showModal!=='function'||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();full.src=a.href;full.alt=im.alt;viewer.showModal()});
+   }arrange(g);
+   if(c.youtube&&validId(c.youtube.id))card(r,'https://www.youtube.com/watch?v='+c.youtube.id,c.youtube.title||'관련 영상',thumb(c.youtube.id),'유튜브 영상 보기 ↗');
+   if(c.clip&&typeof c.clip.url==='string'&&c.clip.url.startsWith('https://clip.naver.com/'))card(r,c.clip.url,c.clip.title,c.clip.image,'');
+   if(c.blog&&/^\d+$/.test(c.blog.id)){let image=c.blog.image||'';try{const res=await fetch('data/blog-posts.json',{cache:'no-store'});const d=await res.json();const post=(d.posts||[]).find(x=>x.url&&x.url.endsWith('/'+c.blog.id));if(post&&post.image)image=post.image}catch{}card(r,'https://blog.naver.com/hannak74/'+c.blog.id,c.blog.title,image,'관련 블로그 살펴보기 ↗')}
+  }catch{loaded=false;g.textContent='갤러리를 불러오지 못했습니다.'}}
+  t.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();const opening=p.hidden;document.querySelectorAll('.program-expand').forEach(b=>{b.setAttribute('aria-expanded','false');const x=document.getElementById(b.getAttribute('aria-controls'));if(x)x.hidden=true});if(opening){p.querySelectorAll('img[data-src]').forEach(im=>{im.src=im.dataset.src;im.removeAttribute('data-src')});p.hidden=false;t.setAttribute('aria-expanded','true');load();requestAnimationFrame(()=>requestAnimationFrame(()=>{if(!p.hidden)scroll(p)}))}else requestAnimationFrame(()=>scroll(owner))},true);
+  p.querySelector('.brand-close').onclick=()=>{t.click();t.focus({preventScroll:true})};new MutationObserver(()=>{if(p.hidden&&viewer.open)viewer.close()}).observe(p,{attributes:true,attributeFilter:['hidden']});
+ }
+})();

@@ -17,3 +17,21 @@ html{overflow-anchor:none}.brand-inline{scroll-margin-top:100px}.brand-gallery v
 .brand-photo-viewer::backdrop{background:rgba(15,23,42,.82)}
 .brand-photo-viewer img{display:block;width:100%;height:auto;max-height:76vh!important;object-fit:contain}
 .brand-photo-viewer button{display:block;margin:0 0 10px auto;padding:8px 14px;border:0;border-radius:8px;background:#192f4a;color:white;cursor:pointer}
+
+
+/* Four standard layouts. Nonstandard combinations use a safe two-column grid. */
+.brand-gallery{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:12px;max-width:760px;margin-inline:auto}
+.brand-gallery figure,.brand-gallery figure:last-child:nth-child(odd){width:100%;min-width:0;grid-column:auto;justify-self:stretch;align-self:start;margin:0}
+.brand-gallery figure>a{display:block;width:100%;min-width:0}
+.brand-gallery figure>a>img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain}
+.brand-gallery figure.is-portrait>a>img{aspect-ratio:3/4}
+.brand-gallery[data-layout="b"]{max-width:560px}
+.brand-gallery[data-layout="c"]{max-width:720px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.brand-gallery[data-layout="c"] figure:not(.is-portrait){grid-column:1;grid-row:var(--gallery-row)}
+.brand-gallery[data-layout="c"] figure.is-portrait{grid-column:2;grid-row:1/span 2;align-self:stretch;display:flex;flex-direction:column}
+.brand-gallery[data-layout="c"] figure.is-portrait>a{flex:1;min-height:0;position:relative}
+.brand-gallery[data-layout="c"] figure.is-portrait>a>img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-fit:contain}
+.brand-gallery[data-layout="fallback"] figure:last-child:nth-child(odd){grid-column:1/-1;width:calc((100% - 12px)/2);justify-self:center}
+.brand-related img{aspect-ratio:1/1;object-fit:contain;border-radius:6px}
+@media(min-width:768px){.brand-gallery[data-layout="c"]{grid-template-columns:minmax(0,1fr) minmax(0,.78fr)}.brand-gallery[data-layout="d"]{grid-template-columns:repeat(4,minmax(0,1fr));max-width:none}}
+@media(max-width:767px){.brand-gallery{gap:10px}.brand-gallery[data-layout="fallback"] figure:last-child:nth-child(odd){width:calc((100% - 10px)/2)}.brand-related{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.brand-related a{padding:8px;font-size:.78rem;line-height:1.45;overflow-wrap:anywhere}.brand-related:has(>a:only-child){grid-template-columns:1fr}}
