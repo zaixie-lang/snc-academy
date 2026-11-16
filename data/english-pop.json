@@ -1,0 +1,29 @@
+{
+  "gallery": [
+    {
+      "type": "image",
+      "file": "story.webp",
+      "title": "스토리로 배우는 영어"
+    },
+    {
+      "type": "image",
+      "file": "digital.webp",
+      "title": "디지털과 교재의 만남"
+    },
+    {
+      "type": "video",
+      "file": "class.mp4",
+      "poster": "poster.webp",
+      "title": "즐겁게 참여하는 영어 수업"
+    }
+  ],
+  "blog": {
+    "id": "224445855548",
+    "title": "잉글리시팝 이야기"
+  },
+  "clip": {
+    "url": "https://clip.naver.com/contents?recType=CLIP_PC&recId=%7B%22targetProfileId%22%3A%22UXywWhmEeD3NPt3cBql4%22%2C%22open%22%3Atrue%7D&mediaType=ALL&serviceType=CLIP&seedMediaId=C46D36010127796B88897BB5995A45FD9E80",
+    "title": "잉글리시팝 영상 · 네이버 클립 보기 ↗",
+    "image": "images/brands/english-pop/clip-cover.webp"
+  }
+}
