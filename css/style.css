@@ -1975,3 +1975,17 @@ ol {
     gap: 10px;
   }
 }
+
+/* 2026-11-17: desktop section spacing; mobile unchanged */
+@media (min-width: 880px) {
+  .section {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+  .section-header {
+    margin-bottom: 36px;
+  }
+  .hero-section {
+    padding-bottom: 28px;
+  }
+}

@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function render() {
     const s = slides[pos]; link.href = s.url; title.textContent = s.title; tag.textContent = s.tag;
     count.textContent = (pos + 1) + ' / ' + slides.length;
-    const fallback = 'images/blog-fallback.png';
+    const fallback = 'images/blog-fallback-web.webp';
     const source = (typeof s.image === 'string' && s.image.trim()) ? s.image.trim() : fallback; img.hidden = false; empty.hidden = true;
     img.alt = s.title + ' 대표 이미지';
     img.onerror = function () {
