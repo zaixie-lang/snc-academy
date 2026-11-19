@@ -1,6 +1,8 @@
 """Refresh rolling Naver blog posts with high-resolution image cache."""
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
+from io import BytesIO
+from PIL import Image, ImageOps
 import html
 import json
 from pathlib import Path
@@ -21,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CFG_FILE = ROOT / 'data/blog-config.json'
 OUT = ROOT / 'data/blog-posts.json'
 IMAGE_DIR = ROOT / 'images/blog'
-FALLBACK = 'images/blog-fallback.png'
+FALLBACK = 'images/blog-fallback-web.webp'
 OWNER = 'hannak74'
 RSS_URL = f'https://rss.blog.naver.com/{OWNER}.xml'
 
@@ -164,24 +166,28 @@ def fetch_rss_recent_posts(exclude_urls, limit=2):
     return candidates[:limit]
 
 
-def determine_extension(data, content_type=''):
-    if data.startswith(b'\x89PNG\r\n\x1a\n'):
-        return '.png'
-    if data.startswith(b'\xff\xd8'):
-        return '.jpg'
-    if data.startswith(b'RIFF') and data[8:12] == b'WEBP':
-        return '.webp'
-    if 'png' in content_type:
-        return '.png'
-    if 'jpeg' in content_type or 'jpg' in content_type:
-        return '.jpg'
-    if 'webp' in content_type:
-        return '.webp'
-    return '.png'
+def compress_thumbnail(data, target):
+    """Preserve aspect ratio; resize and encode a static WebP atomically."""
+    with Image.open(BytesIO(data)) as source:
+        image = ImageOps.exif_transpose(source).convert('RGBA' if 'A' in source.getbands() or 'transparency' in source.info else 'RGB')
+        image.thumbnail((800, 800), Image.Resampling.LANCZOS)
+        for quality in (85, 78, 70, 62):
+            buffer = BytesIO()
+            image.save(buffer, format='WEBP', quality=quality, method=6)
+            if buffer.tell() <= 100 * 1024:
+                break
+        payload = buffer.getvalue()
+    tmp = target.with_suffix('.tmp')
+    try:
+        tmp.write_bytes(payload)
+        tmp.replace(target)
+    finally:
+        tmp.unlink(missing_ok=True)
+    return target
 
 
 def download_post_image(image_url, article_id):
-    """Download near-original image to images/blog/post-{article_id}.{ext}.
+    """Download and compress image to images/blog/post-{article_id}.webp.
 
     If download fails, preserve any previously cached image for this article.
     Never publish partial downloads. Avoid creating duplicate extensions (.img / .png).
@@ -190,9 +196,9 @@ def download_post_image(image_url, article_id):
 
     # Check if a previously cached image already exists for fallback
     existing_file = None
-    for pattern in (f'post-{article_id}.*', f'latest-{article_id}.*'):
+    for pattern in (f'post-{article_id}.webp', f'post-{article_id}.*', f'latest-{article_id}.*'):
         for f in IMAGE_DIR.glob(pattern):
-            if f.is_file() and f.stat().st_size > 0:
+            if f.is_file() and f.suffix != '.tmp' and f.stat().st_size > 0:
                 existing_file = f
                 break
         if existing_file:
@@ -246,29 +252,13 @@ def download_post_image(image_url, article_id):
             return 'images/blog/' + existing_file.name
         return ''
 
-    ext = determine_extension(data, content_type)
-    target = IMAGE_DIR / f'post-{article_id}{ext}'
-    tmp = IMAGE_DIR / f'post-{article_id}.tmp'
-
+    target = IMAGE_DIR / f'post-{article_id}.webp'
     try:
-        tmp.write_bytes(data)
-        tmp.replace(target)
-
-        # Remove any obsolete duplicate file for this article with a different extension
-        for old in IMAGE_DIR.glob(f'post-{article_id}.*'):
-            if old != target and old.is_file():
-                old.unlink()
-        for old in IMAGE_DIR.glob(f'latest-{article_id}.*'):
-            if old.is_file():
-                old.unlink()
-
+        compress_thumbnail(data, target)
         return 'images/blog/' + target.name
     except Exception as exc:
-        print(f'Error saving image ({article_id}): {exc}')
-        tmp.unlink(missing_ok=True)
-        if existing_file:
-            return 'images/blog/' + existing_file.name
-        return ''
+        print(f'Error compressing image ({article_id}): {exc}')
+        return 'images/blog/' + existing_file.name if existing_file else ''
 
 
 def is_file_referenced(filename, active_images):
@@ -289,6 +279,9 @@ def is_file_referenced(filename, active_images):
         ROOT / 'index.html',
         ROOT / 'js/main.js',
         ROOT / 'css/style.css',
+        * (ROOT / 'data').glob('*.json'),
+        * (ROOT / 'js').glob('*.js'),
+        * (ROOT / 'css').glob('*.css'),
     ]
     for sp in search_paths:
         if sp.is_file():
@@ -307,7 +300,7 @@ def cleanup_unused_cache_images(active_images):
     Never delete manual images (pinned-*), brand logos, or fallback images.
     Before deleting, verify that the file is not referenced anywhere.
     """
-    for pattern in ('latest-*.img', 'latest-*.png', 'latest-*.jpg',
+    for pattern in ('latest-*.img', 'latest-*.png', 'latest-*.jpg', 'latest-*.webp',
                     'post-*.img', 'post-*.png', 'post-*.jpg', 'post-*.webp'):
         for old in IMAGE_DIR.glob(pattern):
             if not old.is_file():
@@ -410,6 +403,19 @@ def main():
                     existing_urls.add(p_url)
         except Exception as exc:
             print(f'Warning: Failed to load previous posts for fallback: {exc}')
+
+    # Migrate active legacy automatic caches even when network fetch fails.
+    for post in posts:
+        path = ROOT / post.get('image', '')
+        if path.parent == IMAGE_DIR and re.fullmatch(r'(?:post|latest)-\d+\.(?:png|jpg|jpeg|img)', path.name) and path.is_file():
+            try:
+                target = path.with_suffix('.webp')
+                compress_thumbnail(path.read_bytes(), target)
+                post['image'] = 'images/blog/' + target.name
+            except Exception as exc:
+                print(f'Keeping existing image {path.name}: {exc}')
+        elif post.get('image') == 'images/blog-fallback.png':
+            post['image'] = FALLBACK
 
     # Save data/blog-posts.json atomically
     result = {
