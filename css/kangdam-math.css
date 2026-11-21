@@ -10,3 +10,7 @@
 .kangdam-container .core-card-num{color:#295f9e}
 .kangdam-container .nopigom-intro-card,.kangdam-container .nopigom-cards-section,.kangdam-container .growth-speed-box,.kangdam-container .nopigom-gallery-section,.kangdam-container .nopigom-blog-section,.kangdam-container .nopigom-cta-section{margin-top:24px}
 @media(max-width:767px){.kangdam-hero{padding:20px;gap:12px}.kangdam-hero img{width:28%;max-height:130px}.kangdam-hero p{font-size:.86rem}}
+
+.kangdam-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.kangdam-links a{display:inline-flex;align-items:center;padding:11px 15px;border:1px solid #cbd9e7;border-radius:9px;background:#fff;color:#173b66;font-weight:700;text-decoration:none}
+.kangdam-links a:hover,.kangdam-links a:focus-visible{background:#edf5fc;text-decoration:underline}
