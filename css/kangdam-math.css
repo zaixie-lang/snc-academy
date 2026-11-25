@@ -30,3 +30,7 @@
 [data-brand="english-eye"] .core-card-title{color:#17344d}
 [data-brand="english-eye"] .core-card:nth-child(odd) .core-card-subtitle{color:#007e93}
 [data-brand="english-eye"] .core-card:nth-child(even) .core-card-subtitle{color:#896000}
+
+[data-brand="english-eye"] .kangdam-hero .eye-hero-logo{display:block;width:min(215px,85%);max-height:none;height:auto;margin:0 0 16px;mix-blend-mode:normal}
+[data-brand="english-eye"] .kangdam-hero .eye-hero-character{width:min(32%,240px);max-height:240px;mix-blend-mode:normal;object-fit:contain}
+@media(max-width:767px){[data-brand="english-eye"] .kangdam-hero .eye-hero-character{width:30%;max-height:145px}}
