@@ -1,5 +1,26 @@
 {
-  "gallery": [],
+  "gallery": [
+    {
+      "type": "image",
+      "file": "eye-gallery-01.webp",
+      "title": "태블릿을 활용한 수준별 영어 학습"
+    },
+    {
+      "type": "image",
+      "file": "eye-gallery-02.webp",
+      "title": "교재를 통한 탄탄한 영어 기본기"
+    },
+    {
+      "type": "image",
+      "file": "eye-gallery-03.webp",
+      "title": "집중하는 자기주도 학습"
+    },
+    {
+      "type": "image",
+      "file": "eye-gallery-04.webp",
+      "title": "쾌적한 영어 학습 공간"
+    }
+  ],
   "blogs": [
     {
       "url": "https://blog.naver.com/hannak74/224236921138",
