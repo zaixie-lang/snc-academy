@@ -24,6 +24,9 @@
 [data-brand="english-eye"] .kangdam-eyebrow,[data-brand="english-eye"] .core-card-num{color:#007e93}
 [data-brand="english-eye"] .kangdam-hero h2{color:#164359}
 [data-brand="english-eye"] .kangdam-hero img{mix-blend-mode:multiply;object-fit:contain}
-[data-brand="english-eye"] .core-card:nth-child(1),[data-brand="english-eye"] .core-card:nth-child(4){background:#eaf9fb;border-color:#c5e8ed}
-[data-brand="english-eye"] .core-card:nth-child(2),[data-brand="english-eye"] .core-card:nth-child(3){background:#fff9e6;border-color:#f2e4b4}
 [data-brand="english-eye"] .nopigom-intro-card{border-left:4px solid #00a9bf}
+
+[data-brand="english-eye"] .core-card{background:#f5fbfc;border-color:#d4e8ec;color:#17344d}
+[data-brand="english-eye"] .core-card-title{color:#17344d}
+[data-brand="english-eye"] .core-card:nth-child(odd) .core-card-subtitle{color:#007e93}
+[data-brand="english-eye"] .core-card:nth-child(even) .core-card-subtitle{color:#896000}
