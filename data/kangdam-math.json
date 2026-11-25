@@ -1,7 +1,19 @@
 {
   "gallery": [],
-  "blog": {
-    "id": "224402757866",
-    "title": "강담수학 교육 이야기"
+  "blogs": [
+    {
+      "url": "https://blog.naver.com/hannak74/224464913978"
+    },
+    {
+      "url": "https://blog.naver.com/hannak74/224419848083"
+    }
+  ],
+  "video": {
+    "url": "",
+    "title": "강담수학 소개"
+  },
+  "channel": {
+    "url": "https://www.youtube.com/@%EA%B0%95%EB%8B%B4%EC%83%98",
+    "title": "강담샘 유튜브 채널"
   }
 }
