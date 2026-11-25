@@ -40,11 +40,11 @@
     for(const [i,b] of (Array.isArray(c.blogs)?c.blogs:[]).slice(0,2).entries()){
      const u=safe(b.url,['blog.naver.com','m.blog.naver.com']);if(!u)continue;
      const post=posts.find(x=>x.url&&x.url.split('?')[0].replace(/\/$/,'').endsWith(u.pathname.replace(/\/$/,'')));
-     card(blogs,u.href,b.title||post?.title||'강담수학 교육 이야기 '+(i+1),b.image||post?.image,'관련 블로그 ↗');
+     card(blogs,u.href,b.title||post?.title||'관련 교육 이야기 '+(i+1),b.image||post?.image,'관련 블로그 ↗');
     }
     r.classList.toggle('has-video',!!validId(id));
     if(validId(id)){const video=el('div');video.className='managed-video';card(video,v.href,c.video.title||'대표 영상',thumb(id),'▶ 유튜브 영상 보기 ↗');r.append(video)}
-    if(blogs.children.length)r.append(blogs);
+    if(blogs.children.length){if(blogs.children.length===1)blogs.style.gridTemplateColumns='1fr';r.append(blogs);}
     const channel=safe(c.channel?.url,ytHosts);const nav=p.querySelector('.managed-channel');if(nav){nav.replaceChildren();if(channel)card(nav,channel.href,c.channel.title||'유튜브 채널',null,'▶');nav.hidden=!channel}
     r.hidden=!r.children.length;return;
    }
