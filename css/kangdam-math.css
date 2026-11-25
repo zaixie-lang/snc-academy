@@ -1,0 +1,20 @@
+/* 강담수학 상세 페이지 — 기존 브랜드 공통 컴포넌트 재사용 */
+.kangdam-container{background:#fcfcfa}
+.kangdam-hero{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:32px;border-radius:14px;background:linear-gradient(125deg,#eff5fb,#fff9ed);border:1px solid #e3e9ee}
+.kangdam-hero-copy{flex:1;min-width:0}
+.kangdam-eyebrow{display:block;color:#3b5875;font-size:.84rem;font-weight:800;letter-spacing:.06em;margin-bottom:12px}
+.kangdam-hero h2{color:#152e4b;font-size:clamp(1.65rem,3.4vw,2.7rem);line-height:1.3;letter-spacing:-.04em;margin:0 0 16px}
+.kangdam-hero p{color:#43566c;font-size:1.02rem;font-weight:650}
+.kangdam-hero img{width:min(32%,250px);height:auto;max-height:220px;object-fit:contain}
+.kangdam-container .core-card{background:white;border:1px solid #e3e9ee;border-radius:14px}
+.kangdam-container .core-card-num{color:#295f9e}
+.kangdam-container .nopigom-intro-card,.kangdam-container .nopigom-cards-section,.kangdam-container .growth-speed-box,.kangdam-container .nopigom-gallery-section,.kangdam-container .nopigom-blog-section,.kangdam-container .nopigom-cta-section{margin-top:24px}
+@media(max-width:767px){.kangdam-hero{padding:20px;gap:12px}.kangdam-hero img{width:28%;max-height:130px}.kangdam-hero p{font-size:.86rem}}
+
+.kangdam-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.kangdam-links a{display:inline-flex;align-items:center;padding:11px 15px;border:1px solid #cbd9e7;border-radius:9px;background:#fff;color:#173b66;font-weight:700;text-decoration:none}
+.kangdam-links a:hover,.kangdam-links a:focus-visible{background:#edf5fc;text-decoration:underline}
+
+.kangdam-container .kangdam-four-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.kangdam-container #kangdamRelated[hidden]{display:none!important}.kangdam-blog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.kangdam-blog-grid a{display:flex;flex-direction:column;gap:12px;padding:20px;border:1px solid #dbe4ed;border-radius:12px;background:#fff;color:#173b66;text-decoration:none}.kangdam-blog-grid a span,.kangdam-blog-grid a small{font-size:.85rem}.kangdam-blog-grid a:hover,.kangdam-blog-grid a:focus-visible{background:#edf5fc;text-decoration:underline}.kangdam-container .kangdam-links a{width:100%;justify-content:center}@media(max-width:767px){.kangdam-container .kangdam-four-grid,.kangdam-blog-grid{grid-template-columns:1fr}}
+
+.brand-inline .managed-content{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;width:100%;max-width:none}.brand-inline .managed-content.has-video{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}.managed-blog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.has-video .managed-blog-grid{grid-template-columns:1fr}.managed-content .managed-blog-grid>a,.managed-content .managed-video>a{display:flex;flex-direction:column;gap:10px;width:100%;max-width:none;padding:16px;border:1px solid #dbe4ed;border-radius:12px;background:white;color:#173b66;text-decoration:none;box-sizing:border-box}.managed-blog-grid img{width:100%;aspect-ratio:16/9;object-fit:cover}.managed-video>a{height:100%;justify-content:center}.managed-video img{width:100%;aspect-ratio:9/16;object-fit:contain;background:#172c46}.managed-channel[hidden],.managed-content[hidden],.kangdam-gallery-section[hidden]{display:none!important}@media(max-width:767px){.brand-inline .managed-content.has-video,.managed-blog-grid{grid-template-columns:1fr}.managed-video{max-width:280px;margin:auto;width:100%}}

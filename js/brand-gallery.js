@@ -30,6 +30,24 @@
     const orient=()=>{if(!im.naturalWidth)return;f.classList.toggle('is-portrait',im.naturalHeight>im.naturalWidth);arrange(g)};im.addEventListener('load',orient);im.addEventListener('error',()=>{f.remove();arrange(g)});a.append(im);f.append(a,cap);g.append(f);im.src=a.href;if(im.complete)orient();
     a.addEventListener('click',e=>{if(typeof viewer.showModal!=='function'||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();full.src=a.href;full.alt=im.alt;viewer.showModal()});
    }arrange(g);
+   if(p.hasAttribute('data-content-layout')){
+    const gallerySection=g.closest('section');const syncGallery=()=>{gallerySection.hidden=!g.querySelector('figure')};syncGallery();new MutationObserver(syncGallery).observe(g,{childList:true});
+    const safe=(v,hosts)=>{try{const u=new URL(v);return u.protocol==='https:'&&hosts.includes(u.hostname)?u:null}catch{return null}};
+    const ytHosts=['www.youtube.com','youtube.com','m.youtube.com','youtu.be'];
+    const v=safe(c.video?.url,ytHosts);let id=v&&(v.hostname==='youtu.be'?v.pathname.slice(1):v.pathname.startsWith('/shorts/')?v.pathname.split('/')[2]:v.searchParams.get('v'));
+    const blogs=el('div');blogs.className='managed-blog-grid';
+    let posts=[];try{const res=await fetch('data/blog-posts.json',{cache:'no-store'});posts=(await res.json()).posts||[]}catch{}
+    for(const [i,b] of (Array.isArray(c.blogs)?c.blogs:[]).slice(0,2).entries()){
+     const u=safe(b.url,['blog.naver.com','m.blog.naver.com']);if(!u)continue;
+     const post=posts.find(x=>x.url&&x.url.split('?')[0].replace(/\/$/,'').endsWith(u.pathname.replace(/\/$/,'')));
+     card(blogs,u.href,b.title||post?.title||'강담수학 교육 이야기 '+(i+1),b.image||post?.image,'관련 블로그 ↗');
+    }
+    r.classList.toggle('has-video',!!validId(id));
+    if(validId(id)){const video=el('div');video.className='managed-video';card(video,v.href,c.video.title||'대표 영상',thumb(id),'▶ 유튜브 영상 보기 ↗');r.append(video)}
+    if(blogs.children.length)r.append(blogs);
+    const channel=safe(c.channel?.url,ytHosts);const nav=p.querySelector('.managed-channel');if(nav){nav.replaceChildren();if(channel)card(nav,channel.href,c.channel.title||'유튜브 채널',null,'▶');nav.hidden=!channel}
+    r.hidden=!r.children.length;return;
+   }
    if(c.youtube&&validId(c.youtube.id))card(r,'https://www.youtube.com/watch?v='+c.youtube.id,c.youtube.title||'관련 영상',thumb(c.youtube.id),'유튜브 영상 보기 ↗');
    if(c.clip&&typeof c.clip.url==='string'&&c.clip.url.startsWith('https://clip.naver.com/'))card(r,c.clip.url,c.clip.title,c.clip.image,'');
    if(c.blog&&/^\d+$/.test(c.blog.id)){let image=c.blog.image||'';try{const res=await fetch('data/blog-posts.json',{cache:'no-store'});const d=await res.json();const post=(d.posts||[]).find(x=>x.url&&x.url.endsWith('/'+c.blog.id));if(post&&post.image)image=post.image}catch{}card(r,'https://blog.naver.com/hannak74/'+c.blog.id,c.blog.title,image,'관련 블로그 살펴보기 ↗')}
