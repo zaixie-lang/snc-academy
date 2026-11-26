@@ -90,7 +90,7 @@
   </style>
 <link rel="stylesheet" href="css/english-pop.css?v=2611164">
 <link rel="stylesheet" href="css/kangdam-math.css?v=2611201">
-<style>.brand-inline .numbered-title{display:flex;align-items:baseline;gap:.65rem;text-align:left}.brand-inline .numbered-title .core-card-num{display:inline-block;flex:none;font-size:1.65em;line-height:1;font-weight:800;margin:0;padding:0;background:none;width:auto;height:auto}.reading-partner{background:rgba(255,255,255,.94);border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;max-width:220px}.reading-partner img{width:100%!important;height:auto!important;object-fit:contain}.reading-partner small{font-size:12px;color:#69543c}.brand-inline .growth-speed-desc+.growth-speed-desc{margin-top:12px}</style><style>.kangdam-hero[aria-label="강담수학 소개"] .kangdam-hero-copy h2{color:#142c4b!important}.kangdam-hero[aria-label="강담수학 소개"] .kangdam-hero-copy p,.kangdam-hero[aria-label="강담수학 소개"] .kangdam-eyebrow{color:#36516e!important}.kangdam-hero[aria-label="강담수학 소개"]>img{mix-blend-mode:multiply;border-radius:10px}</style></head>
+<style>.brand-inline .numbered-title{display:flex;align-items:baseline;gap:.65rem;text-align:left}.brand-inline .numbered-title .core-card-num{display:inline-block;flex:none;font-size:1.65em;line-height:1;font-weight:800;margin:0;padding:0;background:none;width:auto;height:auto}.reading-partner{background:rgba(255,255,255,.94);border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;max-width:220px}.reading-partner img{width:100%!important;height:auto!important;object-fit:contain}.reading-partner small{font-size:12px;color:#69543c}.brand-inline .growth-speed-desc+.growth-speed-desc{margin-top:12px}</style><style>.kangdam-hero[aria-label="강담수학 소개"] .kangdam-hero-copy h2{color:#142c4b!important}.kangdam-hero[aria-label="강담수학 소개"] .kangdam-hero-copy p,.kangdam-hero[aria-label="강담수학 소개"] .kangdam-eyebrow{color:#36516e!important}.kangdam-hero[aria-label="강담수학 소개"]>img{mix-blend-mode:multiply;border-radius:10px}</style><style>.programs-grid>.brand-inline,.programs-grid>.program-detail{grid-column:1/-1;min-width:0}.programs-grid>.program-card{cursor:pointer}.programs-grid>.program-card:focus-within{outline:2px solid #477cff;outline-offset:3px}.programs-grid>.brand-inline[hidden],.programs-grid>.program-detail[hidden]{display:none!important}</style></head>
 
 <body>
   <!-- 상단 네비게이션 헤더 -->
@@ -862,6 +862,19 @@ qr.src = 'https://sncedu.kr/images/kakao-qr.png';
         }
       });
     });
-  </script><script src="js/brand-gallery.js?v=2611251"></script></body>
+  </script><script src="js/brand-gallery.js?v=2611251"></script><script>
+(()=>{const grid=document.querySelector('.programs-grid');if(!grid)return;
+const cards=[...grid.querySelectorAll(':scope > .program-card')];
+const pairs=cards.map(card=>{const button=card.querySelector('.program-expand');return {card,button,panel:document.getElementById(button.getAttribute('aria-controls'))}}).filter(x=>x.panel);
+function place(){pairs.forEach(({panel})=>grid.append(panel))}
+place();matchMedia('(max-width:767px)').addEventListener('change',place);
+function scrollToPanel(panel){const header=document.querySelector('#header,header');const offset=header?header.getBoundingClientRect().bottom:0;window.scrollTo({top:Math.max(0,panel.getBoundingClientRect().top+window.scrollY-offset-16),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}
+pairs.forEach(({card,button,panel})=>{
+card.addEventListener('click',e=>{if(e.target.closest('button,a,input,select,textarea'))return;button.click()});
+button.addEventListener('click',()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>{scrollToPanel(panel.hidden?card:panel)}))},true);
+const close=panel.querySelector('.brand-close');if(close)close.addEventListener('click',()=>{if(!panel.hidden)button.click()});
+});
+})();
+</script></body>
 
 </html>
